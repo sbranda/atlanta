@@ -1,0 +1,20 @@
+{
+  "name": "Club Atlético Atlanta",
+  "short_name": "Atlanta",
+  "description": "Sitio informativo no oficial del Club Atlético Atlanta: historia, estadio, plantel y resultados.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0c1830",
+  "theme_color": "#0c1830",
+  "lang": "es-AR",
+  "icons": [
+    {
+      "src": "https://commons.wikimedia.org/wiki/Special:FilePath/Club-Atletico-Atlanta.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

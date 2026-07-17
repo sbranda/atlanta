@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Club Atlético Atlanta</title>
+<meta name="description" content="Sitio informativo no oficial del Club Atlético Atlanta: historia, estadio, plantel y resultados.">
+<meta name="theme-color" content="#0c1830">
+
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="https://commons.wikimedia.org/wiki/Special:FilePath/Club-Atletico-Atlanta.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Atlanta">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0c1830; --bg-alt:#13284f; --paper:#f2ecd9;
+    --verde-nilo:#1e4a8f; --verde-bright:#f2c230; --verde-deep:#0a1e40;
+    --rust:#9c4a2b; --brass:#caa23c; --line:rgba(var(--paper-rgb),0.16);
+    --bg-rgb:12,24,48; --paper-rgb:242,236,217; --verde-bright-rgb:242,194,48;
+    --brass-rgb:202,162,60; --rust-rgb:156,74,43; --rust-text:#d98a6a;
+  }
+  [data-theme="light"]{
+    --bg:#f5f0e0; --bg-alt:#eadfc0; --paper:#12213f;
+    --verde-nilo:#1c3f73; --verde-bright:#8a6410; --verde-deep:#dbe4f2;
+    --rust:#8a3018; --brass:#8a6414; --line:rgba(18,33,63,0.14);
+    --bg-rgb:245,240,224; --paper-rgb:18,33,63; --verde-bright-rgb:138,100,16;
+    --brass-rgb:138,100,20; --rust-rgb:138,63,36; --rust-text:#7a3018;
+  }
+  [data-theme="light"] img.photo{filter:none;}
+  [data-theme="light"] .station-sign{box-shadow:0 0 0 6px var(--verde-nilo), 0 20px 50px rgba(0,0,0,0.15);}
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--bg); color:var(--paper); font-family:'Source Serif 4', Georgia, serif; line-height:1.6; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,.disp{font-family:'Big Shoulders Display', sans-serif; text-transform:uppercase; letter-spacing:0.02em;}
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em;}
+  button{cursor:pointer; border:none; font-family:'IBM Plex Mono', monospace; background:transparent; color:inherit;}
+  :focus-visible{outline:3px solid var(--brass); outline-offset:2px;}
+  p{opacity:0.92;}
+
+  header.hero{
+    min-height:78vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:3rem 1.25rem; position:relative;
+    background-image:linear-gradient(rgba(var(--bg-rgb),0.72), rgba(var(--bg-rgb),0.92)),
+      url('https://commons.wikimedia.org/wiki/Special:FilePath/Estadioferrocarriloeste.jpg');
+    background-size:cover; background-position:center;
+  }
+  header.hero img.crest{width:120px; height:120px; margin-bottom:1.4rem; filter:drop-shadow(0 6px 18px rgba(0,0,0,0.5));}
+  .station-sign{
+    background:var(--verde-nilo); border:3px solid var(--paper);
+    box-shadow:0 0 0 6px var(--verde-deep), 0 20px 50px rgba(0,0,0,0.4);
+    padding:0.8rem 2rem; display:inline-block;
+  }
+  .station-sign span{font-size:clamp(2rem,6vw,4rem); font-weight:900; color:var(--paper); display:block; line-height:0.95;}
+  .hero-sub{margin-top:1.5rem; max-width:36ch; font-size:clamp(1rem,2vw,1.2rem);}
+  .hero-meta{margin-top:0.5rem; color:var(--verde-bright); font-size:0.9rem;}
+
+  nav.tabs{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:0.3rem;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:0.6rem 1rem; position:sticky; top:0; background:var(--bg); z-index:10;
+  }
+  nav.tabs img{width:34px; height:34px; margin-right:0.6rem;}
+  .tabbtn{padding:0.5rem 0.9rem; font-size:0.85rem; text-transform:uppercase; border-bottom:2px solid transparent; transition:color 0.2s, border-color 0.2s;}
+  .tabbtn:hover{color:var(--verde-bright);}
+  .tabbtn.active{color:var(--verde-bright); border-bottom-color:var(--verde-bright);}
+
+  main{max-width:900px; margin:0 auto; padding:3.5rem 1.5rem;}
+  section{display:none;}
+  section.active{display:block;}
+  .eyebrow{color:var(--verde-bright); font-size:0.8rem; text-transform:uppercase; margin-bottom:0.6rem;}
+  h2{font-size:clamp(1.7rem,4vw,2.4rem); margin:0 0 1.2rem;}
+
+  /* timeline */
+  .efemeride{
+    border:1px solid var(--brass); background:rgba(var(--brass-rgb),0.08);
+    padding:1.1rem 1.3rem; margin-bottom:1.8rem;
+  }
+  .efemeride .tag{font-size:0.7rem; color:var(--brass); text-transform:uppercase; letter-spacing:0.08em;}
+  .efemeride .titulo{font-family:'Big Shoulders Display', sans-serif; font-size:1.2rem; margin-top:0.3rem;}
+  .efemeride .texto{font-size:0.9rem; opacity:0.9; margin-top:0.3rem;}
+  .efemeride.proxima{border-color:rgba(var(--paper-rgb),0.25); background:transparent;}
+  .efemeride.proxima .tag{color:var(--verde-bright);}
+  .timeline{position:relative; padding-left:2.2rem; margin-top:2rem;}
+  .timeline::before{content:""; position:absolute; left:0.5rem; top:0.3rem; bottom:0.3rem; width:6px;
+    background:repeating-linear-gradient(180deg, var(--brass) 0 4px, transparent 4px 16px);}
+  .stop{position:relative; padding-bottom:1.4rem;}
+  .dot{position:absolute; left:-2.2rem; top:0.35rem; width:1.2rem; height:1.2rem; border-radius:50%; background:var(--verde-nilo); border:3px solid var(--paper);}
+  .stop.open .dot{background:var(--verde-bright);}
+  .stopbtn{width:100%; text-align:left; padding:0.5rem 0.7rem;}
+  .stopbtn:hover{background:rgba(var(--verde-bright-rgb),0.08);}
+  .stopbtn .yr{color:var(--brass); font-size:0.95rem; display:block;}
+  .stopbtn .ti{font-family:'Big Shoulders Display', sans-serif; text-transform:uppercase; font-size:1.25rem;}
+  .stop .body{display:none; padding:0 0.7rem; margin:0.4rem 0 0;}
+  .stop.open .body{display:block;}
+
+  /* colors */
+  .colors{display:flex; gap:1rem; flex-wrap:wrap; margin:1.8rem 0;}
+  .swatch{flex:1 1 150px; border:1px solid var(--line); padding:1rem; text-align:center;}
+  .swatch .chip{height:50px; margin-bottom:0.6rem;}
+  .swatch .yr{font-size:0.78rem; color:var(--verde-bright);}
+  .swatch p{font-size:0.85rem; margin:0.3rem 0 0; opacity:0.75;}
+  .nicknames{display:flex; flex-wrap:wrap; gap:0.6rem; margin-top:1rem;}
+  .nickname{font-size:0.85rem; border:1px solid var(--verde-nilo); color:var(--verde-bright); padding:0.35rem 0.8rem;}
+
+  /* stadium */
+  .gallery{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:0.8rem; margin:1.6rem 0;}
+  .gallery img{width:100%; height:170px; object-fit:cover; border:1px solid var(--line); filter:saturate(0.9);}
+  .stat-row{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1rem;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:1.4rem 0; margin:1.6rem 0;}
+  .stat-num{font-family:'Big Shoulders Display', sans-serif; font-size:2.1rem; font-weight:700;}
+  .stat-label{font-size:0.72rem; color:var(--verde-bright);}
+
+  /* historic squads */
+  .squadcard{border:1px solid var(--line); margin-bottom:0.6rem;}
+  .squadbtn{width:100%; padding:1rem 1.2rem; display:flex; justify-content:space-between; align-items:center; gap:1rem;}
+  .squadbtn:hover{background:rgba(var(--verde-bright-rgb),0.08);}
+  .squadbtn .yr{color:var(--brass); font-size:0.9rem; display:block;}
+  .squadbtn .ti{font-family:'Big Shoulders Display', sans-serif; text-transform:uppercase; font-size:1.25rem;}
+  .squadbtn .plus{color:var(--verde-bright); font-size:1.2rem;}
+  .squadbody{display:none; padding:0 1.2rem 1.2rem;}
+  .squadcard.open .squadbody{display:block;}
+  .line-label{font-size:0.72rem; color:var(--verde-bright); text-transform:uppercase;}
+
+  /* squad grid */
+  .filters{display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1.6rem;}
+  #jugador-search{
+    width:100%; box-sizing:border-box; margin:1.4rem 0 0.6rem;
+    background:transparent; border:1px solid var(--verde-nilo); color:var(--paper);
+    padding:0.7rem 0.9rem; font-size:0.9rem;
+  }
+  #jugador-search::placeholder{color:rgba(var(--paper-rgb),0.45);}
+  #jugador-search:focus{outline:none; border-color:var(--verde-bright);}
+  .jugador-hit{
+    border:1px solid var(--line); padding:0.7rem 0.9rem; margin-bottom:0.5rem;
+    display:flex; justify-content:space-between; align-items:center; gap:0.8rem; flex-wrap:wrap;
+  }
+  .bg-categoria{font-size:0.7rem; color:var(--brass); text-transform:uppercase; margin:1.2rem 0 0.5rem; font-family:'IBM Plex Mono', monospace;}
+  .bg-categoria:first-child{margin-top:0;}
+  .bg-hit{
+    border:1px solid var(--line); padding:0.8rem 1rem; margin-bottom:0.5rem; cursor:pointer;
+  }
+  .bg-hit:hover{border-color:var(--verde-bright); background:rgba(var(--verde-bright-rgb),0.06);}
+  .bg-hit .titulo{font-weight:600;}
+  .bg-hit .snippet{font-size:0.82rem; opacity:0.75; margin-top:0.25rem;}
+  .jugador-hit .nombre{font-weight:600;}
+  .jugador-hit .contexto{font-size:0.78rem; color:var(--verde-bright); font-family:'IBM Plex Mono', monospace;}
+  .jugador-sin{font-size:0.85rem; opacity:0.6; margin-bottom:1rem;}
+  .destacado-card{border:1px solid var(--line); padding:0.9rem 1.1rem; margin-bottom:0.6rem;}
+  .destacado-card .nombre{font-weight:600; font-size:1rem;}
+  .destacado-card .periodo{font-size:0.72rem; color:var(--brass); font-family:'IBM Plex Mono', monospace; text-transform:uppercase; margin-top:0.15rem;}
+  .destacado-card .dato{font-size:0.88rem; opacity:0.85; margin-top:0.4rem;}
+  .trivia-card{border:1px solid var(--verde-nilo); padding:1.2rem; margin-top:1rem;}
+  .trivia-score{font-size:0.75rem; color:var(--brass); margin-bottom:0.8rem;}
+  .trivia-pregunta{font-size:1.05rem; margin-bottom:1rem;}
+  .trivia-opciones{display:flex; flex-direction:column; gap:0.5rem;}
+  .trivia-opcion{
+    background:transparent; border:1px solid rgba(var(--paper-rgb),0.25); color:var(--paper);
+    padding:0.7rem 0.9rem; text-align:left; font-size:0.9rem; cursor:pointer; border-radius:2px;
+  }
+  .trivia-opcion:hover:not(:disabled){border-color:var(--verde-bright);}
+  .trivia-opcion.correcta{background:rgba(var(--verde-bright-rgb),0.2); border-color:var(--verde-bright); color:var(--verde-bright);}
+  .trivia-opcion.incorrecta{background:rgba(var(--rust-rgb),0.2); border-color:var(--rust); color:var(--rust-text);}
+  .trivia-opcion:disabled{cursor:default;}
+  .trivia-siguiente{margin-top:1rem; background:var(--verde-nilo); color:var(--paper); border:none; padding:0.6rem 1rem; font-family:'IBM Plex Mono', monospace; font-size:0.82rem; cursor:pointer;}
+  .filterbtn{padding:0.5rem 1rem; font-size:0.8rem; border:1px solid var(--verde-nilo); color:var(--verde-bright);}
+  .filterbtn.active{background:var(--verde-nilo); color:var(--paper);}
+  .squadgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:0.7rem;}
+  .player{border:1px solid var(--line); padding:0.9rem;}
+  .player .name{font-weight:600;}
+  .player .detail{font-size:0.78rem; color:var(--verde-bright); margin-top:0.2rem;}
+
+  /* results */
+  .standing{background:var(--verde-deep); border:1px solid var(--verde-nilo); padding:1rem 1.4rem; margin-bottom:1.6rem;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.6rem;}
+  .standing .pos{color:var(--brass);}
+  .proximo{border:1px solid var(--brass); background:rgba(var(--brass-rgb),0.08); padding:1rem 1.2rem; margin-bottom:1.2rem;}
+  .racha{margin-bottom:1.4rem;}
+  .compartir-btn{
+    display:inline-flex; align-items:center; gap:0.5rem; margin-bottom:0.6rem;
+    background:var(--verde-nilo); color:var(--paper); border:none;
+    padding:0.6rem 1rem; font-family:'IBM Plex Mono', monospace; font-size:0.82rem; cursor:pointer;
+  }
+  .compartir-btn:hover{background:var(--verde-bright); color:var(--bg);}
+  #compartir-wrap{display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.8rem;}
+  .rivales{margin-top:1.8rem;}
+  .rivales .label{font-size:0.72rem; color:var(--verde-bright); text-transform:uppercase; margin-bottom:0.6rem;}
+  .rival-card{
+    display:flex; align-items:center; justify-content:space-between; gap:0.8rem; flex-wrap:wrap;
+    border:1px solid var(--line); padding:0.8rem 1rem; margin-bottom:0.5rem;
+  }
+  .rival-card .info .name{font-weight:600;}
+  .rival-card .info .apodo{font-size:0.75rem; color:var(--brass); cursor:help; margin-top:0.1rem;}
+  .rival-card .info .when{font-size:0.78rem; color:rgba(var(--paper-rgb),0.65); margin-top:0.15rem;}
+  .rival-btn{
+    font-size:0.75rem; text-decoration:none; color:var(--verde-bright);
+    border:1px solid var(--verde-nilo); padding:0.4rem 0.8rem; white-space:nowrap;
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .rival-btn:hover{background:rgba(var(--verde-bright-rgb),0.12);}
+  .racha .label{font-size:0.72rem; color:var(--verde-bright); text-transform:uppercase; margin-bottom:0.5rem;}
+  .racha-icons{display:flex; gap:0.5rem;}
+  .racha-icon{
+    width:2.1rem; height:2.1rem; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Big Shoulders Display', sans-serif; font-weight:700; font-size:1rem;
+    color:var(--bg); cursor:default;
+  }
+  .racha-icon.g{background:var(--verde-bright);}
+  .racha-icon.e{background:var(--brass);}
+  .racha-icon.p{background:var(--rust); color:var(--paper);}
+  .proximo .tag{font-size:0.72rem; color:var(--brass); text-transform:uppercase;}
+  .proximo .match{font-family:'Big Shoulders Display', sans-serif; font-size:1.3rem; margin-top:0.3rem;}
+  .countdown-hero{margin-top:1rem; font-size:0.85rem; color:var(--paper); opacity:0.9; min-height:1.2em;}
+  .hero-proximo{
+    margin-top:1.6rem;
+    border:1px solid rgba(var(--paper-rgb),0.3);
+    background:rgba(var(--bg-rgb),0.55);
+    padding:1rem 1.6rem;
+    display:inline-flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.3rem;
+  }
+  .hero-proximo .tag{font-size:0.68rem; color:var(--verde-bright); text-transform:uppercase; letter-spacing:0.1em;}
+  .hero-proximo .match{font-family:'Big Shoulders Display', sans-serif; font-size:1.5rem; text-transform:uppercase;}
+  .hero-proximo .match-row{display:flex; align-items:center; gap:0.7rem;}
+  .hero-proximo .cond{color:var(--brass); font-size:0.78rem;}
+  .hero-proximo .when{font-size:0.85rem; opacity:0.85;}
+  .countdown-box{display:flex; gap:0.6rem; margin-top:0.8rem; flex-wrap:wrap;}
+  .clima-box{
+    margin-top:0.8rem; display:flex; align-items:center; gap:0.5rem;
+    font-size:0.85rem; opacity:0.9;
+  }
+  .clima-icon{font-size:1.3rem;}
+  .prediccion{margin-top:1rem; padding-top:0.9rem; border-top:1px dashed rgba(var(--paper-rgb),0.2);}
+  .prediccion .label{font-size:0.72rem; color:var(--verde-bright); text-transform:uppercase; margin-bottom:0.5rem;}
+  .prediccion-form{display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;}
+  .prediccion-form input{
+    width:3rem; text-align:center; background:var(--bg); color:var(--paper);
+    border:1px solid var(--verde-nilo); padding:0.4rem; font-family:'IBM Plex Mono', monospace; font-size:1rem;
+  }
+  .prediccion-form span{color:var(--brass); font-weight:700;}
+  .prediccion-form button{
+    background:var(--verde-nilo); color:var(--paper); border:none; padding:0.5rem 0.9rem;
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; cursor:pointer;
+  }
+  .prediccion-guardada{font-size:0.85rem;}
+  .prediccion-resultado{margin-top:0.5rem; font-size:0.85rem; padding:0.6rem 0.8rem;}
+  .prediccion-resultado.exacto{background:rgba(var(--verde-bright-rgb),0.15); color:var(--verde-bright);}
+  .prediccion-resultado.parcial{background:rgba(var(--brass-rgb),0.15); color:var(--brass);}
+  .prediccion-resultado.fallo{background:rgba(var(--rust-rgb),0.15); color:var(--rust-text);}
+  .countdown-box .unit{border:1px solid rgba(var(--paper-rgb),0.25); padding:0.5rem 0.7rem; text-align:center; min-width:58px;}
+  .countdown-box .unit .num{font-family:'Big Shoulders Display', sans-serif; font-size:1.5rem; font-weight:700; line-height:1;}
+  .countdown-box .unit .lbl{font-size:0.65rem; color:var(--verde-bright); text-transform:uppercase; margin-top:0.2rem;}
+  .rrow{display:flex; align-items:center; gap:1rem; padding:0.7rem 0.5rem; border-bottom:1px solid rgba(var(--paper-rgb),0.1);}
+  .rrow:hover{background:rgba(var(--verde-bright-rgb),0.06);}
+  .rrow .date{font-size:0.75rem; color:rgba(var(--paper-rgb),0.5); width:48px;}
+  .rrow .cond{font-size:0.7rem; color:var(--brass); width:18px;}
+  .rrow .rival{flex:1;}
+  .rrow .score{background:var(--verde-bright); color:var(--bg); padding:0.2rem 0.6rem; font-weight:600; min-width:44px; text-align:center;}
+  .rrow .scorers{font-size:0.8rem; opacity:0.65; flex:1 1 160px;}
+
+  .visit-card{background:var(--verde-deep); border:1px solid var(--verde-nilo); padding:1.8rem;}
+  .mapa-wrap{margin-top:1.2rem; border:1px solid var(--verde-nilo); overflow:hidden;}
+  .mapa-wrap iframe{width:100%; height:260px; border:0; display:block; filter:grayscale(0.15) contrast(1.05);}
+  .mapa-link{display:inline-block; margin-top:0.7rem; font-size:0.8rem;}
+  .standings-table{width:100%; border-collapse:collapse; font-size:0.82rem;}
+  .standings-table th{font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--verde-bright); text-transform:uppercase; text-align:center; padding:0.4rem 0.3rem; border-bottom:1px solid var(--line);}
+  .standings-table th:first-child, .standings-table td:first-child{text-align:left; padding-left:0;}
+  .standings-table td{text-align:center; padding:0.45rem 0.3rem; border-bottom:1px solid rgba(var(--paper-rgb),0.08);}
+  .standings-table tr.me{background:rgba(var(--verde-bright-rgb),0.15);}
+  .standings-table tr.me td{color:var(--paper); font-weight:600;}
+  .comparador{margin-top:2.4rem; border-top:1px solid var(--line); padding-top:1.6rem;}
+  .comparador-selects{display:flex; align-items:center; gap:0.8rem; margin-top:0.8rem; flex-wrap:wrap;}
+  .comparador-selects select{
+    flex:1 1 160px; background:var(--bg); color:var(--paper); border:1px solid var(--verde-nilo);
+    padding:0.6rem 0.7rem; font-size:0.85rem; font-family:'IBM Plex Mono', monospace;
+  }
+  .comparador-vs{color:var(--brass); font-size:0.8rem;}
+  .comp-table{width:100%; border-collapse:collapse; margin-top:1.2rem; font-size:0.85rem;}
+  .comp-table th{font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--verde-bright); text-transform:uppercase; padding:0.4rem; border-bottom:1px solid var(--line); text-align:center;}
+  .comp-table td{padding:0.5rem 0.4rem; text-align:center; border-bottom:1px solid rgba(var(--paper-rgb),0.08);}
+  .comp-table td.stat-label{text-align:left; color:var(--verde-bright); font-family:'IBM Plex Mono', monospace; font-size:0.72rem; text-transform:uppercase;}
+  .comp-table .team-header{display:flex; flex-direction:column; align-items:center; gap:0.4rem;}
+  .comp-table .team-header .name{font-size:0.78rem; max-width:110px;}
+  .comp-table td.better{color:var(--verde-bright); font-weight:700;}
+  .standings-table .team-cell{display:flex; align-items:center; gap:0.4rem; text-align:left;}
+  .visit-card .label{color:var(--brass); font-size:0.78rem; text-transform:uppercase; margin-top:1rem;}
+
+  footer{text-align:center; padding:2.5rem 1.5rem 3.5rem; opacity:0.5; font-size:0.75rem;}
+
+  .install-toast{
+    position:fixed; bottom:1rem; left:50%; transform:translateX(-50%);
+    background:var(--verde-nilo); color:var(--paper); padding:0.8rem 1.2rem;
+    border:1px solid var(--paper); display:none; align-items:center; gap:0.8rem; z-index:50; font-size:0.85rem;
+  }
+  .install-toast.show{display:flex;}
+  .install-toast button{background:var(--paper); color:var(--verde-deep); padding:0.4rem 0.8rem; font-weight:600;}
+
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <img class="crest" src="https://commons.wikimedia.org/wiki/Special:FilePath/Club-Atletico-Atlanta.png" alt="Escudo del Club Atlético Atlanta">
+  <div class="station-sign"><span>Club Atlético<br>Atlanta</span></div>
+  <p class="hero-sub">Los Bohemios de Villa Crespo. Historia, identidad y pasión a rayas azules y amarillas.</p>
+  <p class="hero-meta mono">FUNDADO 12 · 10 · 1904</p>
+  <div id="hero-proximo" class="hero-proximo"></div>
+  <div id="countdown-hero" class="countdown-hero"></div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Club-Atletico-Atlanta.png" alt="Escudo">
+  <button class="tabbtn mono active" data-tab="historia">Historia</button>
+  <button class="tabbtn mono" data-tab="identidad">Identidad</button>
+  <button class="tabbtn mono" data-tab="estadio">Estadio</button>
+  <button class="tabbtn mono" data-tab="planteles">Planteles históricos</button>
+  <button class="tabbtn mono" data-tab="plantel">Plantel actual</button>
+  <button class="tabbtn mono" data-tab="resultados">Resultados</button>
+  <button class="tabbtn mono" data-tab="visitanos">Visitanos</button>
+  <button class="mono" id="buscar-global-btn" title="Buscar en toda la app" style="background:transparent; border:1px solid var(--verde-nilo); color:var(--verde-bright); padding:0.5rem 0.8rem; font-size:0.9rem; cursor:pointer;">🔍</button>
+  <button class="mono" id="theme-toggle-btn" title="Cambiar tema claro/oscuro" style="background:transparent; border:1px solid var(--verde-nilo); color:var(--verde-bright); padding:0.5rem 0.8rem; font-size:0.9rem; cursor:pointer;">🌙</button>
+  <button class="mono" id="font-menos-btn" title="Achicar letra" style="background:transparent; border:1px solid var(--verde-nilo); color:var(--verde-bright); padding:0.5rem 0.7rem; font-size:0.8rem; cursor:pointer;">A-</button>
+  <button class="mono" id="font-mas-btn" title="Agrandar letra" style="background:transparent; border:1px solid var(--verde-nilo); color:var(--verde-bright); padding:0.5rem 0.7rem; font-size:1.05rem; cursor:pointer;">A+</button>
+</nav>
+
+<div id="buscar-global-overlay" style="display:none; position:fixed; inset:0; background:rgba(13,31,22,0.97); z-index:100; overflow-y:auto;">
+  <div style="max-width:700px; margin:0 auto; padding:1.5rem;">
+    <div style="display:flex; align-items:center; gap:0.6rem;">
+      <input type="text" id="buscar-global-input" class="mono" placeholder="Buscar jugadores, rivales, historia, efemérides…" autocomplete="off"
+        style="flex:1; background:transparent; border:1px solid var(--verde-nilo); color:var(--paper); padding:0.8rem 1rem; font-size:1rem;">
+      <button id="buscar-global-cerrar" class="mono" style="background:transparent; border:1px solid rgba(242,236,217,0.3); color:var(--paper); padding:0.8rem 1rem; cursor:pointer;">✕</button>
+    </div>
+    <div id="buscar-global-resultados" style="margin-top:1.5rem;"></div>
+  </div>
+</div>
+
+<main>
+
+  <section id="tab-historia" class="active">
+    <div id="efemeride-wrap"></div>
+    <div class="eyebrow mono">Línea de tiempo</div>
+    <h2 class="disp">De la casa de Elías Sanz a Villa Crespo</h2>
+    <p>Tocá cada estación para ver su historia.</p>
+    <div class="timeline" id="timeline"></div>
+
+    <div class="eyebrow mono" style="margin-top:2.2rem;">El clásico</div>
+    <h2 class="disp" style="font-size:1.4rem;">Clásico de Villa Crespo — vs. Chacarita Juniors</h2>
+    <p>Atlanta y Chacarita, los dos grandes clubes de Villa Crespo, se enfrentan desde 1927. Entre 1933 y 1944 sus canchas estuvieron pegadas, separadas apenas por una medianera — hasta que Chacarita se mudó a San Martín y Atlanta compró ese mismo terreno para construir, años después, el estadio que hoy ocupa.</p>
+
+    <div class="stat-row">
+      <div><div class="stat-num">140</div><div class="stat-label mono">Partidos oficiales jugados</div></div>
+      <div><div class="stat-num">37</div><div class="stat-label mono">Victorias de Atlanta</div></div>
+      <div><div class="stat-num">59</div><div class="stat-label mono">Victorias de Chacarita</div></div>
+      <div><div class="stat-num">44</div><div class="stat-label mono">Empates</div></div>
+    </div>
+
+    <div class="destacado-card">
+      <div class="nombre">El primer Clásico</div>
+      <div class="periodo mono">13 de noviembre de 1927</div>
+      <div class="dato">Chacarita ganó 2-0, con goles de José Gaslini y Renato Cesarini — el mismo Cesarini que años después dirigiría a River Plate.</div>
+    </div>
+    <div class="destacado-card">
+      <div class="nombre">42 años de espera</div>
+      <div class="periodo mono">Abril de 2026</div>
+      <div class="dato">Atlanta le ganó a Chacarita de local por primera vez desde 1984, con gol de Nacho Rodríguez, en el Estadio Don León Kolbowski dirigido por Cristian Pellerano.</div>
+    </div>
+    <div class="destacado-card">
+      <div class="nombre">La curiosidad</div>
+      <div class="periodo mono">1933–1944</div>
+      <div class="dato">Durante más de una década, las canchas de Atlanta y Chacarita en Villa Crespo estuvieron separadas por una simple medianera, alimentando la rivalidad partido a partido.</div>
+    </div>
+    <p class="mono" style="font-size:0.72rem; opacity:0.5; margin-top:0.6rem;">Historial según Wikipedia y ESPN, actualizado a abril de 2026.</p>
+
+    <div class="eyebrow mono" style="margin-top:2.2rem;">Trivia</div>
+    <h2 class="disp" style="font-size:1.4rem;">¿Cuánto sabés de Atlanta?</h2>
+    <div id="trivia-wrap"></div>
+  </section>
+
+  <section id="tab-identidad">
+    <div class="eyebrow mono">Identidad</div>
+    <h2 class="disp">Azul y amarillo, desde los toldos del barrio</h2>
+    <p>Los colores del club no vienen de una bandera ni un prócer: nacieron mirando los negocios del barrio.</p>
+    <div class="colors">
+      <div class="swatch">
+        <div class="chip" style="background:linear-gradient(90deg,#1e4a8f 50%, #f2c230 50%);"></div>
+        <span class="yr mono">1904 →</span>
+        <p>Azul y amarillo en rayas verticales, elegidos en referencia a los toldos que cubrían los comercios porteños de la época.</p>
+      </div>
+    </div>
+    <p>Apodo que remite a los primeros años trashumantes del club, cambiando de cancha una y otra vez antes de instalarse en Villa Crespo:</p>
+    <div class="nicknames" id="nicknames"></div>
+  </section>
+
+  <section id="tab-estadio">
+    <div class="eyebrow mono">Historia en Villa Crespo</div>
+    <h2 class="disp">Estadio Don León Kolbowski</h2>
+    <p>Construido sobre el terreno que hasta 1944 ocupó la cancha de Chacarita Juniors, en la calle Humboldt 374. Se inauguró el 5 de junio de 1960, con derrota 1-3 ante Argentinos Juniors.</p>
+    <div class="gallery">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Atlanta%20estadio.jpg" alt="Estadio Don León Kolbowski del Club Atlético Atlanta" loading="lazy">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Estadio%20Don%20Le%C3%B3n%20Kolbowsky%20(Club%20Atl%C3%A9tico%20Atlanta)..jpg" alt="Vista del Estadio Don León Kolbowski" loading="lazy">
+      <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Estadio%20Don%20Le%C3%B3n%20Kolbowsky,%20del%20Club%20Atl%C3%A9tico%20Atlanta.jpg" alt="Estadio Don León Kolbowski, del Club Atlético Atlanta" loading="lazy">
+    </div>
+    <div class="stat-row">
+      <div><div class="stat-num">1960</div><div class="stat-label mono">Año de apertura</div></div>
+      <div><div class="stat-num">~18.000</div><div class="stat-label mono">Capacidad actual</div></div>
+      <div><div class="stat-num">2000</div><div class="stat-label mono">Año en que tomó el nombre de Kolbowski</div></div>
+    </div>
+    <p>Sus tribunas originales eran de madera; en 2005 el Gobierno porteño clausuró el estadio por motivos de seguridad, y recién en 2009 reabrió con las plateas ya reconstruidas en cemento.</p>
+  </section>
+
+  <section id="tab-planteles">
+    <div class="eyebrow mono">1904 — hoy</div>
+    <h2 class="disp">Planteles históricos</h2>
+    <p>No existen planillas completas de cada una de las más de 100 temporadas del club — sobre todo de la época amateur, mal documentada. Estos son los equipos mejor registrados de la historia de Atlanta. Tocá cada uno para ver la formación.</p>
+
+    <input type="text" id="jugador-search" class="mono" placeholder="Buscar jugador por nombre…" autocomplete="off">
+    <div id="jugador-resultados"></div>
+
+    <div id="historic-squads"></div>
+    <p class="mono" style="font-size:0.78rem; opacity:0.55; margin-top:1.4rem;">Fuentes: Wikipedia, CIHF, El Gráfico, Infobae y el sitio oficial del club.</p>
+
+    <div class="eyebrow mono" style="margin-top:2.4rem;">A través de las épocas</div>
+    <h2 class="disp" style="font-size:1.4rem;">Jugadores destacados</h2>
+    <div id="destacados-wrap"></div>
+
+    <div class="eyebrow mono" style="margin-top:2.4rem;">Los que dirigieron al Verdolaga</div>
+    <h2 class="disp" style="font-size:1.4rem;">Directores técnicos</h2>
+    <div id="dts-wrap"></div>
+    <p class="mono" style="font-size:0.78rem; opacity:0.55; margin-top:1rem;">Hubo decenas de entrenadores a lo largo de la historia del club — estos son los mejor documentados.</p>
+  </section>
+
+  <section id="tab-plantel">
+    <div class="eyebrow mono">Primera Nacional 2026</div>
+    <h2 class="disp">Plantel actual</h2>
+    <p>DT: <strong>Cristian Pellerano</strong> (44 años)</p>
+    <div class="filters" id="filters"></div>
+    <div class="squadgrid" id="squadgrid"></div>
+  </section>
+
+  <section id="tab-resultados">
+    <div class="eyebrow mono">Últimas fechas</div>
+    <h2 class="disp">Resultados — Primera Nacional 2026</h2>
+    <div class="standing">
+      <span>Posición actual en su zona</span>
+      <span class="pos mono">2° puesto · Zona B · 36 pts (tras la fecha 20)</span>
+    </div>
+    <div id="fechas-restantes-wrap"></div>
+    <div id="racha-wrap"></div>
+    <div id="racha-lv-wrap"></div>
+    <div id="proximo-wrap"></div>
+    <div id="rivales-wrap"></div>
+    <div id="compartir-wrap"></div>
+    <div id="results"></div>
+    <p class="mono" id="fuente-datos" style="font-size:0.78rem; opacity:0.55; margin-top:1rem;">Fuente: LA NACION / Canchallena, fechas 16 a 20 del torneo (datos fijos).</p>
+
+    <button class="btn mono" id="toggle-standings" style="margin-top:1.6rem; border:1px solid var(--verde-nilo); color:var(--verde-bright); padding:0.6rem 1rem;">
+      Ver tabla completa de la zona ▾
+    </button>
+    <div id="standings-wrap" style="display:none; margin-top:1rem;">
+      <div id="standings-table-wrap-A"></div>
+      <div id="standings-table-wrap-B" style="margin-top:2rem;"></div>
+
+      <div class="comparador">
+        <div class="eyebrow mono">Comparador rápido</div>
+        <div class="comparador-selects">
+          <select id="comp-equipo-a" class="mono"><option value="">Elegí un equipo…</option></select>
+          <span class="mono comparador-vs">vs</span>
+          <select id="comp-equipo-b" class="mono"><option value="">Elegí un equipo…</option></select>
+        </div>
+        <div id="comparador-resultado"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tab-visitanos">
+    <div class="eyebrow mono">Cómo llegar</div>
+    <h2 class="disp">Visitanos en Villa Crespo</h2>
+    <div class="visit-card">
+      <h3 class="disp" style="font-size:1.2rem; margin:0 0 0.8rem;">Estadio Don León Kolbowski</h3>
+      <p>Humboldt 374, Villa Crespo, Ciudad de Buenos Aires</p>
+      <p class="label mono">Cómo llegar</p>
+      <p>Subte: Línea B, estación Dorrego</p>
+      <p>Tren: Línea San Martín, estación Villa Crespo</p>
+      <p>Metrobus: estación Murillo</p>
+
+      <div class="mapa-wrap">
+        <iframe
+          title="Mapa del estadio de Atlanta"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-58.4552%2C-34.5990%2C-58.4432%2C-34.5910&layer=mapnik&marker=-34.5950%2C-58.4493"
+          loading="lazy">
+        </iframe>
+      </div>
+      <a class="mono mapa-link" href="https://www.google.com/maps/search/?api=1&query=Estadio+Don+Leon+Kolbowski+Villa+Crespo" target="_blank" rel="noopener noreferrer">Abrir en Google Maps ↗</a>
+    </div>
+
+    <div class="eyebrow mono" style="margin-top:2.4rem;">Sumate</div>
+    <h2 class="disp">Hacerse socio</h2>
+    <div class="visit-card">
+      <h3 class="disp" style="font-size:1.2rem; margin:0 0 0.8rem;">Cómo asociarte</h3>
+      <p>Las categorías, valores de cuota y medios de pago cambian con frecuencia. Consultá siempre la página oficial del club o acercate a la Oficina de Socios y Socias para conocer las condiciones vigentes.</p>
+    </div>
+
+    <div class="visit-card" style="margin-top:1rem;">
+      <h3 class="disp" style="font-size:1.2rem; margin:0 0 0.8rem;">Sede social</h3>
+      <p>Humboldt 374, Villa Crespo, Ciudad de Buenos Aires</p>
+      <p class="label mono">Sitio oficial</p>
+      <p><a href="https://caatlanta.com.ar" target="_blank" rel="noopener noreferrer">caatlanta.com.ar</a></p>
+    </div>
+    <p class="mono" style="font-size:0.72rem; opacity:0.5; margin-top:0.8rem;">Los valores de cuotas cambian con frecuencia — consultá siempre <a href="https://caatlanta.com.ar" target="_blank" rel="noopener noreferrer">la página oficial</a> para el monto actualizado.</p>
+
+    <div class="eyebrow mono" style="margin-top:2.4rem;">Mantenete al día</div>
+    <a href="https://caatlanta.com.ar/futbol-profesional/" target="_blank" rel="noopener noreferrer" class="rival-btn" style="display:inline-block; margin-top:0.6rem;">📰 Novedades del club ↗</a>
+  </section>
+
+</main>
+
+<footer class="mono">
+  Sitio informativo no oficial sobre Club Atlético Atlanta · Villa Crespo, Buenos Aires<br>
+  Fotos e imágenes: Wikimedia Commons (CC BY-SA)
+</footer>
+
+<div class="install-toast mono" id="installToast">
+  <span>Instalá Atlanta en tu pantalla de inicio</span>
+  <button id="installBtn">Instalar</button>
+</div>
+
+<script>
+// ---------- DATA ----------
+// Hitos con fecha exacta (día/mes) documentada, para el widget "Un día como hoy".
+// Ojo: son pocos porque la mayoría de la historia del club no tiene fecha
+// exacta registrada (sobre todo la época amateur) — no es una lista completa,
+// son los que sí están bien documentados.
+const EFEMERIDES = [
+  { dia: 12, mes: 10, anio: 1904, texto: "Un grupo de jóvenes se reúne en la casa de Elías Sanz, en Alsina 1119, y funda el Atlanta Athletic Club." },
+  { dia: 22, mes: 4, anio: 1906, texto: "Debut oficial de Atlanta en AFA: derrota a Racing Club B por el campeonato de Tercera División." },
+  { dia: 13, mes: 11, anio: 1927, texto: "Primer Clásico de Villa Crespo oficial: Chacarita le gana 2-0 a Atlanta, con goles de Gaslini y Cesarini." },
+  { dia: 1, mes: 12, anio: 1956, texto: "Atlanta le gana 3-2 a Banfield y se consagra campeón de Primera B, ascendiendo a Primera División con Victorio Spinetto como DT." },
+  { dia: 29, mes: 4, anio: 1960, texto: "Atlanta le gana 3-1 a Racing Club en la final de la Copa Suecia 1958/60, su único título oficial en Primera División." },
+  { dia: 5, mes: 6, anio: 1960, texto: "Se inaugura el estadio de Humboldt 374 con un partido ante Argentinos Juniors: Atlanta pierde 1-3." },
+  { dia: 19, mes: 11, anio: 1983, texto: "Atlanta empata 1-1 con Central Córdoba (Rosario) y, con Chacarita goleando a Tigre, se consagra campeón de Primera B y asciende a Primera División." },
+  { dia: 23, mes: 9, anio: 1984, texto: "Última victoria de Atlanta como local ante Chacarita en Primera División, con gol de Osvaldo Maza — un resultado que tardaría 42 años en repetirse." },
+  { dia: 25, mes: 12, anio: 1991, texto: "La Justicia declara la quiebra del club, que suspende sus actividades institucionales." },
+  { dia: 11, mes: 6, anio: 1995, texto: "Atlanta le gana 2-1 a Sportivo Dock Sud, con dos goles de Luis Alberto Bonnet, y asciende a la B Nacional. La final se jugó en la cancha de Ferro Carril Oeste." },
+  { dia: 29, mes: 3, anio: 2009, texto: "Reapertura del Estadio Don León Kolbowski tras la clausura de 2006: Atlanta le gana 3-1 a Deportivo Español." },
+];
+
+const TIMELINE = [
+  { year: "1904", title: "Fundación", text: "El 12 de octubre, un grupo de jóvenes se reúne en la casa de Elías Sanz, en Alsina 1119, y funda el club con el nombre de un crucero de guerra estadounidense fondeado en Buenos Aires." },
+  { year: "1922", title: "Llega a Villa Crespo", text: "Tras deambular por Floresta, Parque Chacabuco y Carrasco, el club compra un terreno en la calle Humboldt y se instala definitivamente en Villa Crespo." },
+  { year: "1927", title: "Nace el clásico", text: "Primer Clásico de Villa Crespo oficial ante Chacarita Juniors, entonces vecino de cancha: sus estadios estaban separados apenas por una medianera." },
+  { year: "1956", title: "Primer ascenso deportivo", text: "Campeón de Primera B bajo la dirección de Victorio Spinetto: la mejor campaña histórica del club, con 75% de los puntos disputados." },
+  { year: "1960", title: "El estadio propio", text: "Sobre el terreno que Chacarita dejó libre en 1944, Atlanta inaugura su propio estadio en Humboldt 374 — hoy Don León Kolbowski." },
+  { year: "1991–94", title: "La quiebra", text: "El club atraviesa su etapa más oscura: quiebra declarada en 1991 y venta de la sede social en 1994, con años de lucha para recuperar el patrimonio." },
+  { year: "1995", title: "Ascenso con Bonnet", text: "Con dos goles de Luis Alberto Bonnet en la final ante Dock Sud, Atlanta asciende a la B Nacional." },
+  { year: "Hoy", title: "Primera Nacional", text: "El equipo compite en la Zona B de la segunda división del fútbol argentino, dirigido por Cristian Pellerano." },
+];
+
+// Escudos reales de rivales de ambas zonas (Wikimedia Commons), por nombre
+// normalizado (sin acentos, minúscula). Todavía no tengo la URL de los 36
+// equipos completos — para los que faltan, se muestra un círculo con las
+// iniciales en vez de romper la imagen. Se puede ampliar con el tiempo.
+// Apodos de rivales y su origen, verificados (no son todos los 36 equipos —
+// solo los que tienen un origen bien documentado). Por nombre normalizado.
+const APODOS_RIVALES = {
+  'colon': { apodo: 'El Sabalero', origen: 'Por los pescadores que vendían sábalo cerca del club, a orillas del río, a principios del siglo XX.' },
+  'deportivo moron': { apodo: 'El Gallo', origen: 'Apodo tradicional del club, ligado a su escudo e identidad histórica.' },
+  'moron': { apodo: 'El Gallo', origen: 'Apodo tradicional del club, ligado a su escudo e identidad histórica.' },
+  'godoy cruz': { apodo: 'El Bodeguero', origen: 'Por la tradición vitivinícola de Mendoza, la provincia del club.' },
+  'san miguel': { apodo: 'El Trueno Verde', origen: 'Apodo histórico del club, por su camiseta verde.' },
+  'defensores de belgrano': { apodo: 'El Dragón', origen: 'Apodo tradicional del club de Barracas.' },
+  'acassuso': { apodo: 'El Quemero', origen: 'Por la zona de quemas de basura que existía cerca del club, en Boulogne.' },
+  'all boys': { apodo: 'El Albo', origen: 'Por el blanco de su camiseta.' },
+  'san telmo': { apodo: 'El Candombero', origen: 'Por la tradición afroargentina del barrio porteño de San Telmo, cuna del candombe.' },
+  'los andes': { apodo: 'Los Milrayitas', origen: 'Por las finas rayas verticales de su camiseta.' },
+  'almirante brown': { apodo: 'La Fragata', origen: 'En honor al almirante Guillermo Brown, marino que da nombre al club.' },
+  'almagro': { apodo: 'El Tricolor', origen: 'Por los tres colores de su camiseta.' },
+  'atlanta': { apodo: 'El Bohemio', origen: 'Por las varias mudanzas del club antes de asentarse en Villa Crespo en 1922.' },
+  'quilmes': { apodo: 'El Cervecero', origen: 'Por la cervecería Quilmes, fundada en la misma ciudad pocos años después del club.' },
+  'chacarita': { apodo: 'El Funebrero', origen: 'Porque en sus inicios muchos socios eran empleados del cercano cementerio de la Chacarita; hasta el negro de la camiseta viene de ahí.' },
+  'chacarita juniors': { apodo: 'El Funebrero', origen: 'Porque en sus inicios muchos socios eran empleados del cercano cementerio de la Chacarita; hasta el negro de la camiseta viene de ahí.' },
+  'nueva chicago': { apodo: 'El Torito', origen: 'Apodo tradicional del club del barrio de Mataderos.' },
+  'gimnasia jujuy': { apodo: 'El Lobo', origen: 'Apodo tradicional del club jujeño.' },
+  'gimnasia y esgrima': { apodo: 'El Lobo', origen: 'Apodo tradicional del club jujeño.' },
+  'tristan suarez': { apodo: 'El Lechero', origen: 'Por la actividad tambera de la zona de Tristán Suárez a principios del siglo XX.' },
+  'patronato': { apodo: 'El Santo / El Patrón', origen: 'Por su nombre completo, "Patronato de la Juventud Católica".' },
+  'temperley': { apodo: 'El Celeste', origen: 'Por el color de su camiseta.' },
+};
+
+const CREST_MAP = {
+  // Ferro (agregado acá también para que escudoHtml() lo resuelva en
+  // cualquier lugar, no solo donde había un caso especial a mano)
+  'ferro carril oeste': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_del_Club_Ferro_Carril_Oeste.svg',
+  // Zona A
+  'san miguel': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20C.A.S.M.png',
+  'colon': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Atl%C3%A9tico%20Col%C3%B3n.svg',
+  'deportivo moron': 'https://commons.wikimedia.org/wiki/Special:FilePath/Club%20Deportivo%20Moron%20Escudo%20de%201962.png',
+  'moron': 'https://commons.wikimedia.org/wiki/Special:FilePath/Club%20Deportivo%20Moron%20Escudo%20de%201962.png',
+  'los andes': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Atl%C3%A9tico%20Los%20Andes.svg',
+  'godoy cruz': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Deportivo%20Godoy%20Cruz%20Antonio%20Tomba.svg',
+  'all boys': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Atl%C3%A9tico%20All%20Boys.svg',
+  'san telmo': 'https://commons.wikimedia.org/wiki/Special:FilePath/Club%20Atl%C3%A9tico%20San%20Telmo%20(logo).svg',
+  'defensores de belgrano': 'https://commons.wikimedia.org/wiki/Special:FilePath/Defensores%20de%20Belgrano%20Logo.svg',
+  'mitre': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Atletico%20Mitre.svg',
+  // Zona B
+  'atlanta': 'https://commons.wikimedia.org/wiki/Special:FilePath/Club-Atletico-Atlanta.png',
+  'quilmes': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20de%20Quilmes%20Atl%C3%A9tico%20Club.svg',
+  'chacarita': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Atl%C3%A9tico%20Chacarita%20Juniors.svg',
+  'chacarita juniors': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Atl%C3%A9tico%20Chacarita%20Juniors.svg',
+  'nueva chicago': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Atl%C3%A9tico%20Nueva%20Chicago.svg',
+  'temperley': 'https://commons.wikimedia.org/wiki/Special:FilePath/Club-Atl%C3%A9tico-Temperley.png',
+  'colegiales': 'https://commons.wikimedia.org/wiki/Special:FilePath/Colegiales%20arg%20logo.png',
+  'tristan suarez': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20Final%20TS%20PNG.png',
+  'agropecuario': 'https://commons.wikimedia.org/wiki/Special:FilePath/Agropec%20escudo.png',
+  'ciudad de bolivar': 'https://en.wikipedia.org/wiki/Special:FilePath/Club_Ciudad_Bolivar_logo.png',
+  'patronato': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Atl%C3%A9tico%20Patronato%20de%20la%20Juventud%20Cat%C3%B3lica.svg',
+  // Encontrados en una segunda pasada
+  'almirante brown': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Almirante%20Brown.svg',
+  'estudiantes': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Atl%C3%A9tico%20Estudiantes%20de%20Buenos%20Aires.svg',
+  'central norte': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Central%20Norte%20de%20Salta.svg',
+  'chaco for ever': 'https://commons.wikimedia.org/wiki/Special:FilePath/Chaco%20For%20Ever-ARG.png',
+  'almagro': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Almagro.svg',
+  // Tercera pasada
+  'deportivo madryn': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Social%20y%20Deportivo%20Madryn.svg',
+  'racing': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Racing%20de%20C%C3%B3rdoba.svg',
+  'racing cordoba': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Racing%20de%20C%C3%B3rdoba.svg',
+  // Encontrado el bug real: Wikipedia escribe "Atlético de Rafaela" (con
+  // "de", mi clave no lo tenía) y "San Martín (SJ)" abreviado (mi clave tenía
+  // el nombre completo "San Juan"). Ninguna de las dos coincidía como
+  // substring. Corregido con las claves que sí calzan con el texto real.
+  'atletico de rafaela': 'https://commons.wikimedia.org/wiki/Special:FilePath/Logotipo_Oficial_y_Escudo_del_Club_Atl%C3%A9tico_de_Rafaela.svg',
+  'san martin tucuman': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20San%20Martin%20de%20Tucum%C3%A1n.svg',
+  'san martin sj': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_San_Martin_de_San_Juan.svg',
+  'san martin san juan': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo_de_San_Martin_de_San_Juan.svg',
+  // Cuarta pasada (busqueda exhaustiva)
+  'midland': 'https://commons.wikimedia.org/wiki/Special:FilePath/Midland%20escudo.png',
+  'acassuso': 'https://es.wikipedia.org/wiki/Special:FilePath/Club%20acassuso%20logo.png',
+  'deportivo maipu': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Deportivo%20Maipu.svg',
+  'maipu': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Deportivo%20Maipu.svg',
+  'guemes': 'https://commons.wikimedia.org/wiki/Special:FilePath/Logo%20Club%20Atletico%20G%C3%BCemes%20de%20Santiago%20del%20Estero.svg',
+  'gimnasia y esgrima': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Gimnasia%20y%20Esgrima%20Jujuy.svg',
+  'gimnasia jujuy': 'https://commons.wikimedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Gimnasia%20y%20Esgrima%20Jujuy.svg',
+  'gimnasia y tiro': 'https://es.wikipedia.org/wiki/Special:FilePath/Escudo%20del%20Club%20Gimnasia%20y%20Tiro%20de%20Salta.svg',
+};
+
+function iniciales(nombre){
+  return (nombre || '').split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+}
+
+// Busca el escudo de un rival: primero por coincidencia exacta de nombre
+// normalizado, y si no, probando si alguna clave conocida está contenida en
+// el nombre (por si Promiedos lo escribe distinto, ej. "Dep. Morón" en vez
+// de "Deportivo Morón").
+function buscarEscudo(nombre){
+  const n = normalizar(nombre);
+  if (CREST_MAP[n]) return CREST_MAP[n];
+  const key = Object.keys(CREST_MAP).find(k => n.includes(k) || k.includes(n));
+  return key ? CREST_MAP[key] : null;
+}
+
+// Devuelve el HTML de un escudo (imagen real si la tenemos, si no un círculo
+// con las iniciales del equipo) para mostrar junto al nombre de un rival.
+function escudoHtml(nombre, size){
+  const url = buscarEscudo(nombre);
+  if (url) {
+    return `<img src="${url}" alt="Escudo de ${nombre}" style="width:${size}px; height:${size}px; object-fit:contain;" loading="lazy">`;
+  }
+  return `<div style="width:${size}px; height:${size}px; border-radius:50%; background:var(--verde-deep); border:1px solid var(--verde-nilo); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:${Math.round(size * 0.38)}px; color:var(--verde-bright); flex-shrink:0;">${iniciales(nombre)}</div>`;
+}
+
+const NICKNAMES = ["Bohemios", "El Bohemio"];
+
+// Preguntas de trivia, armadas con los mismos datos de TIMELINE/EFEMERIDES/
+// HISTORIC_SQUADS que ya usamos en el resto de la app.
+const TRIVIA = [
+  { pregunta: "¿En qué año se fundó Atlanta?", opciones: ["1898", "1904", "1912", "1921"], correcta: 1 },
+  { pregunta: "¿De qué tomó el nombre el club?", opciones: ["Un río de Villa Crespo", "Un crucero de guerra de EE.UU.", "Un prócer argentino", "Una calle de Montserrat"], correcta: 1 },
+  { pregunta: "¿Cuál es el apodo del club?", opciones: ["Los Bohemios", "Los Millonarios", "Los Matadores", "Los Tricolores"], correcta: 0 },
+  { pregunta: "¿En qué barrio de Buenos Aires juega Atlanta?", opciones: ["Flores", "Villa Crespo", "Chacarita", "Palermo"], correcta: 1 },
+  { pregunta: "¿Cómo se llama el estadio de Atlanta?", opciones: ["José Amalfitani", "Don León Kolbowski", "Diego Armando Maradona", "Ciudad de Vicente López"], correcta: 1 },
+  { pregunta: "¿En qué año Atlanta ascendió a Primera División ganando el campeonato de Primera B, con Victorio Spinetto como DT?", opciones: ["1948", "1956", "1965", "1972"], correcta: 1 },
+  { pregunta: "¿Contra qué club se juega el Clásico de Villa Crespo?", opciones: ["Chacarita Juniors", "Excursionistas", "All Boys", "Nueva Chicago"], correcta: 0 },
+  { pregunta: "¿De qué colores son los colores tradicionales de Atlanta?", opciones: ["Verde y blanco", "Rojo y negro", "Azul y amarillo", "Celeste y blanco"], correcta: 2 },
+  { pregunta: "¿Quién es el máximo goleador histórico de Atlanta?", opciones: ["Luis Artime", "Juan Antonio Gómez Voglino", "Hugo Gatti", "Fabián Castro"], correcta: 1 },
+  { pregunta: "¿Quién jugó más partidos en la historia del club?", opciones: ["Fabián Castro", "Víctor \"Bichi\" Paredes", "Carlos Griguol", "Luis Bonnet"], correcta: 1 },
+  { pregunta: "¿En qué año Atlanta salió campeón de Primera B por última vez y ascendió a Primera División?", opciones: ["1979", "1983", "1990", "1995"], correcta: 1 },
+  { pregunta: "¿A qué equipo le ganó Atlanta en la final por la que ascendió a la B Nacional en 1995?", opciones: ["Sportivo Dock Sud", "Deportivo Armenio", "Almagro", "Colegiales"], correcta: 0 },
+];
+
+// Jugadores destacados de distintas épocas de Atlanta, con datos verificados.
+// Directores técnicos con datos y contexto bien documentados. No es la lista
+// completa (Wikipedia registra 42 nombres en total) — son los que tienen
+// fechas y logros confirmados en fuentes confiables.
+const DTS_HISTORICOS = [
+  { nombre: "Victorio Spinetto", periodo: "1956", dato: "Dirigió al equipo campeón de Primera B 1956, la mejor campaña histórica del club (75% de los puntos disputados) y el ascenso a Primera División." },
+  { nombre: "Jorge Ribolzi / Jorge Ghiso", periodo: "1994/95", dato: "Se alternaron en la conducción del equipo durante la campaña del ascenso a la B Nacional 1995, con Luis Alberto Bonnet como goleador de la final." },
+  { nombre: "Cristian Pellerano", periodo: "Noviembre de 2025 — actualidad", dato: "Surgido de las inferiores del club, asumió como DT tras una carrera como jugador en México y Ecuador. En 2026 le devolvió a Atlanta una victoria de local en el clásico ante Chacarita, algo que no ocurría desde 1984." },
+];
+
+const JUGADORES_DESTACADOS = [
+  { nombre: "Juan Antonio Gómez Voglino", periodo: "Años '70", dato: "Máximo goleador histórico del club con 68 goles. En 1973 marcó 18, siendo el goleador de un torneo de Primera División donde Atlanta terminó tercero." },
+  { nombre: "Víctor \"Bichi\" Paredes", periodo: "—", dato: "El jugador con más partidos en la historia del club: 333, la totalidad de los que disputó como profesional." },
+  { nombre: "Fabián \"Pepe\" Castro", periodo: "1989–1996", dato: "Ídolo de Villa Crespo, referente del plantel que ascendió en 1995 y más tarde entrenador del club." },
+  { nombre: "Carlos Timoteo Griguol", periodo: "Como jugador", dato: "Pasó por Atlanta como futbolista antes de forjar su leyenda como DT campeón en Ferro Carril Oeste — un curioso cruce entre ambos clubes." },
+  { nombre: "Hugo Orlando Gatti y Luis Artime", periodo: "Distintas épocas", dato: "Dos glorias del fútbol argentino que también vistieron la camiseta de Atlanta en algún tramo de sus carreras." },
+];
+
+const HISTORIC_SQUADS = [
+  { year:"1956", title:"Campeón de Primera B",
+    context:"Plantel dirigido por Victorio Spinetto que se consagró campeón el 1° de diciembre de 1956, venciendo 3-2 a Banfield, y ascendió a Primera División. No se conserva una formación completa organizada por líneas; estos son los nombres mejor documentados de aquella campaña.",
+    lines:[
+      {label:"Jugadores documentados", players:"Norberto Di Santo, Oscar Riccardi, Ángel Rocha, Armando Ovide, Isolino Fuentes, Anacleto Labrador, Anselmo Estrella, Rodolfo \"Pocho\" Bettinotti (capitán)"},
+    ]},
+  { year:"1994/95", title:"Ascenso a la B Nacional",
+    context:"Plantel que, dirigido primero por Jorge Ribolzi y luego por Jorge Ghiso, ganó el Torneo Clausura de la Primera B Metropolitana y venció en la final a Sportivo Dock Sud.",
+    lines:[
+      {label:"Jugadores destacados de la campaña", players:"Luis Alberto Bonnet, Fabián Castro, Rubén Checchia, Alberto Montes, Miguel Pla, Jorge Alberto Merlo"},
+    ]},
+];
+
+const SQUAD = [
+  {name:"Facundo Rago", pos:"Arq", detail:"Arquero", extra:"N° 1"},
+  {name:"Facundo Masuero", pos:"Arq", detail:"Arquero", extra:""},
+  {name:"Dylan Argüello", pos:"Def", detail:"Defensor", extra:"N° 3"},
+  {name:"Rodrigo Moreira", pos:"Def", detail:"Defensor", extra:"N° 2"},
+  {name:"Matías García", pos:"Def", detail:"Defensor", extra:"N° 4"},
+  {name:"Tom\u00e1s Rojas", pos:"Def", detail:"Defensor", extra:"N° 6"},
+  {name:"Nahuel Urtazun", pos:"Def", detail:"Defensor", extra:""},
+  {name:"David Bramajo", pos:"Def", detail:"Defensor", extra:""},
+  {name:"Nicol\u00e1s Previtali", pos:"Med", detail:"Mediocampista", extra:"N° 5"},
+  {name:"Tob\u00edas Castro Ponce", pos:"Med", detail:"Mediocampista", extra:"N° 8"},
+  {name:"Mat\u00edas Ibarra", pos:"Med", detail:"Mediocampista", extra:""},
+  {name:"Lautaro Fedele", pos:"Med", detail:"Mediocampista", extra:""},
+  {name:"Juli\u00e1n Aquino", pos:"Med", detail:"Mediocampista", extra:""},
+  {name:"Christian Bernardi", pos:"Med", detail:"Mediocampista", extra:""},
+  {name:"Federico Bisanz", pos:"Med", detail:"Mediocampista", extra:""},
+  {name:"Nicol\u00e1s Medina", pos:"Med", detail:"Mediocampista", extra:""},
+  {name:"Ignacio Rodríguez", pos:"Del", detail:"Delantero", extra:"N° 19"},
+  {name:"Jerem\u00edas Puch", pos:"Del", detail:"Delantero", extra:"N° 10"},
+  {name:"Franco Álvarez", pos:"Del", detail:"Delantero", extra:"N° 7"},
+  {name:"Alejandro Quintana", pos:"Del", detail:"Delantero", extra:"N° 9"},
+  {name:"Vito Esmay", pos:"Del", detail:"Delantero", extra:""},
+  {name:"Thiago Ruiz", pos:"Del", detail:"Delantero", extra:""},
+  {name:"Rom\u00e1n Herrera", pos:"Del", detail:"Delantero", extra:""},
+  {name:"Rocco Pasquale", pos:"Del", detail:"Delantero", extra:""},
+];
+
+const POS_LABELS = {todos:"Todos", Arq:"Arqueros", Def:"Defensores", Med:"Mediocampo", Del:"Delanteros"};
+
+// URL BASE de tu Worker de Cloudflare (ver worker.js), sin barra final.
+// Reemplazá esto por la tuya después de desplegarlo.
+const WORKER_BASE = "https://atlanta-fixture.tu-nombre.workers.dev";
+
+const RESULTS_FALLBACK = [
+  {fecha:20, date:"13/07", rival:"Colegiales", cond:"L", score:"1-0", scorers:"I. Rodríguez"},
+  {fecha:19, date:"04/07", rival:"Quilmes", cond:"V", score:"1-2", scorers:""},
+  {fecha:18, date:"13/06", rival:"Midland", cond:"V", score:"2-1", scorers:""},
+  {fecha:17, date:"06/06", rival:"Gimnasia (Jujuy)", cond:"L", score:"3-0", scorers:"Quintana, Puch, Bernardi"},
+  {fecha:16, date:"31/05", rival:"Gimnasia y Tiro", cond:"L", score:"1-1", scorers:"Previtali"},
+];
+
+let RESULTS = RESULTS_FALLBACK;
+let PROXIMOS = [];
+
+// ---------- RENDER ----------
+// ---------- UN DÍA COMO HOY ----------
+function renderEfemeride(){
+  const wrap = document.getElementById('efemeride-wrap');
+  if (!wrap) return;
+
+  const hoy = new Date();
+  const dia = hoy.getDate();
+  const mes = hoy.getMonth() + 1;
+
+  const deHoy = EFEMERIDES.filter(e => e.dia === dia && e.mes === mes);
+
+  if (deHoy.length) {
+    wrap.innerHTML = deHoy.map(e => `
+      <div class="efemeride">
+        <div class="tag mono">Un día como hoy · ${e.anio}</div>
+        <div class="texto">${e.texto}</div>
+      </div>`).join('');
+    return;
+  }
+
+  // Si no hay nada para la fecha exacta, mostramos el próximo hito que se
+  // viene (buscando por día del año, dando la vuelta si ya pasaron todos).
+  const hoyDiaAnio = diaDelAnio(dia, mes);
+  const ordenados = [...EFEMERIDES].sort((a, b) => diaDelAnio(a.dia, a.mes) - diaDelAnio(b.dia, b.mes));
+  const proxima = ordenados.find(e => diaDelAnio(e.dia, e.mes) > hoyDiaAnio) || ordenados[0];
+
+  const meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+  wrap.innerHTML = `
+    <div class="efemeride proxima">
+      <div class="tag mono">Sin hitos registrados para hoy · próximo: ${proxima.dia} ${meses[proxima.mes - 1]}</div>
+      <div class="texto">${proxima.anio} — ${proxima.texto}</div>
+    </div>`;
+}
+
+function diaDelAnio(dia, mes){
+  return new Date(2001, mes - 1, dia).getTime(); // año arbitrario fijo, solo para ordenar
+}
+
+
+// ---------- TRIVIA DEL CLUB ----------
+let triviaOrden = [];
+let triviaIdx = 0;
+let triviaAciertos = 0;
+let triviaRespondidas = 0;
+
+function mezclarTrivia(){
+  triviaOrden = TRIVIA.map((_, i) => i).sort(() => Math.random() - 0.5);
+  triviaIdx = 0;
+  triviaAciertos = 0;
+  triviaRespondidas = 0;
+}
+
+function renderTrivia(){
+  const wrap = document.getElementById('trivia-wrap');
+  if (!wrap) return;
+  if (!triviaOrden.length) mezclarTrivia();
+
+  if (triviaIdx >= triviaOrden.length) {
+    wrap.innerHTML = `
+      <div class="trivia-card">
+        <div class="trivia-pregunta">¡Completaste la trivia! Acertaste ${triviaAciertos} de ${triviaOrden.length}.</div>
+        <button class="trivia-siguiente mono" id="trivia-reiniciar">Jugar de nuevo</button>
+      </div>`;
+    document.getElementById('trivia-reiniciar').addEventListener('click', () => { mezclarTrivia(); renderTrivia(); });
+    return;
+  }
+
+  const q = TRIVIA[triviaOrden[triviaIdx]];
+  const opciones = q.opciones.map((op, i) =>
+    `<button class="trivia-opcion" data-i="${i}">${op}</button>`
+  ).join('');
+
+  wrap.innerHTML = `
+    <div class="trivia-card">
+      <div class="trivia-score mono">Pregunta ${triviaIdx + 1} de ${triviaOrden.length} · Aciertos: ${triviaAciertos}</div>
+      <div class="trivia-pregunta">${q.pregunta}</div>
+      <div class="trivia-opciones">${opciones}</div>
+    </div>`;
+
+  wrap.querySelectorAll('.trivia-opcion').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const elegida = Number(btn.dataset.i);
+      wrap.querySelectorAll('.trivia-opcion').forEach(b => {
+        b.disabled = true;
+        if (Number(b.dataset.i) === q.correcta) b.classList.add('correcta');
+      });
+      if (elegida !== q.correcta) btn.classList.add('incorrecta');
+      else triviaAciertos++;
+      triviaRespondidas++;
+
+      const siguiente = document.createElement('button');
+      siguiente.className = 'trivia-siguiente mono';
+      siguiente.textContent = triviaIdx + 1 < triviaOrden.length ? 'Siguiente →' : 'Ver resultado';
+      siguiente.addEventListener('click', () => { triviaIdx++; renderTrivia(); });
+      wrap.querySelector('.trivia-card').appendChild(siguiente);
+    });
+  });
+}
+
+function renderTimeline(){
+  const el = document.getElementById('timeline');
+  el.innerHTML = TIMELINE.map((s,i) => `
+    <div class="stop${i===0?' open':''}" data-i="${i}">
+      <div class="dot"></div>
+      <button class="stopbtn">
+        <span class="yr mono">${s.year}</span>
+        <span class="ti">${s.title}</span>
+      </button>
+      <p class="body">${s.text}</p>
+    </div>`).join('');
+  el.querySelectorAll('.stop').forEach(stop => {
+    stop.querySelector('.stopbtn').addEventListener('click', () => stop.classList.toggle('open'));
+  });
+}
+
+function renderNicknames(){
+  document.getElementById('nicknames').innerHTML = NICKNAMES.map(n => `<span class="nickname mono">${n}</span>`).join('');
+}
+
+function renderDTs(){
+  const wrap = document.getElementById('dts-wrap');
+  if (!wrap) return;
+  wrap.innerHTML = DTS_HISTORICOS.map(d => `
+    <div class="destacado-card">
+      <div class="nombre">${d.nombre}</div>
+      <div class="periodo mono">${d.periodo}</div>
+      <div class="dato">${d.dato}</div>
+    </div>`).join('');
+}
+
+function renderDestacados(){
+  const wrap = document.getElementById('destacados-wrap');
+  if (!wrap) return;
+  wrap.innerHTML = JUGADORES_DESTACADOS.map(j => `
+    <div class="destacado-card">
+      <div class="nombre">${j.nombre}</div>
+      <div class="periodo mono">${j.periodo}</div>
+      <div class="dato">${j.dato}</div>
+    </div>`).join('');
+}
+
+function renderHistoricSquads(){
+  const el = document.getElementById('historic-squads');
+  el.innerHTML = HISTORIC_SQUADS.map((sq,i) => `
+    <div class="squadcard${i===0?' open':''}" data-i="${i}">
+      <button class="squadbtn">
+        <span><span class="yr mono">${sq.year}</span><span class="ti">${sq.title}</span></span>
+        <span class="plus mono">${i===0?'–':'+'}</span>
+      </button>
+      <div class="squadbody">
+        <p>${sq.context}</p>
+        ${sq.lines.map(l => `<div style="margin-bottom:0.6rem;"><div class="line-label mono">${l.label}</div><div>${l.players}</div></div>`).join('')}
+      </div>
+    </div>`).join('');
+  el.querySelectorAll('.squadcard').forEach(card => {
+    const btn = card.querySelector('.squadbtn');
+    btn.addEventListener('click', () => {
+      card.classList.toggle('open');
+      btn.querySelector('.plus').textContent = card.classList.contains('open') ? '–' : '+';
+    });
+  });
+}
+
+// ---------- BUSCADOR DE JUGADORES POR NOMBRE ----------
+// Busca tanto en los planteles históricos (parseando el texto separado por
+// comas de cada línea) como en el plantel actual, sin distinguir mayúsculas
+// ni acentos.
+function normalizar(str){
+  return (str || '')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // saca acentos
+    .toLowerCase()
+    .replace(/[().,]/g, ' ') // saca paréntesis y puntuación (ej. "San Martín (Tucumán)")
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function buscarJugadores(query){
+  const q = normalizar(query);
+  if (!q) return [];
+  const hits = [];
+
+  HISTORIC_SQUADS.forEach(sq => {
+    sq.lines.forEach(line => {
+      line.players.split(',').forEach(nombreRaw => {
+        const nombre = nombreRaw.trim();
+        if (nombre && normalizar(nombre).includes(q)) {
+          hits.push({ nombre, contexto: `${sq.year} · ${sq.title}` });
+        }
+      });
+    });
+  });
+
+  SQUAD.forEach(p => {
+    if (normalizar(p.name).includes(q)) {
+      hits.push({ nombre: p.name, contexto: `Plantel actual · ${p.detail}` });
+    }
+  });
+
+  JUGADORES_DESTACADOS.forEach(j => {
+    if (normalizar(j.nombre).includes(q)) {
+      hits.push({ nombre: j.nombre, contexto: `Destacado · ${j.periodo}` });
+    }
+  });
+
+  return hits;
+}
+
+function renderBusquedaJugadores(query){
+  const wrap = document.getElementById('jugador-resultados');
+  const listaHistorica = document.getElementById('historic-squads');
+  const q = query.trim();
+
+  if (!q) {
+    wrap.innerHTML = '';
+    listaHistorica.style.display = '';
+    return;
+  }
+  listaHistorica.style.display = 'none';
+
+  const hits = buscarJugadores(q);
+  if (!hits.length) {
+    wrap.innerHTML = `<p class="jugador-sin mono">No se encontró ningún jugador con "${q}".</p>`;
+    return;
+  }
+  wrap.innerHTML = hits.map(h => `
+    <div class="jugador-hit">
+      <span class="nombre">${h.nombre}</span>
+      <span class="contexto">${h.contexto}</span>
+    </div>`).join('');
+}
+
+document.getElementById('jugador-search').addEventListener('input', (e) => {
+  renderBusquedaJugadores(e.target.value);
+});
+
+// ---------- BUSCADOR GLOBAL ----------
+// Revisa todo el contenido de la app: historia, efemérides, planteles
+// históricos, plantel actual, jugadores destacados, DTs y apodos de rivales.
+function buscarGlobal(query){
+  const q = normalizar(query);
+  if (!q) return {};
+
+  const resultados = {};
+
+  const timelineHits = TIMELINE.filter(t => normalizar(t.year + ' ' + t.title + ' ' + t.text).includes(q))
+    .map(t => ({ titulo: `${t.year} — ${t.title}`, snippet: t.text, tab: 'historia' }));
+  if (timelineHits.length) resultados['Historia'] = timelineHits;
+
+  const efemerideHits = EFEMERIDES.filter(e => normalizar(e.anio + ' ' + e.texto).includes(q))
+    .map(e => ({ titulo: `${e.dia}/${e.mes} · ${e.anio}`, snippet: e.texto, tab: 'historia' }));
+  if (efemerideHits.length) resultados['Efemérides'] = efemerideHits;
+
+  const jugadoresHits = buscarJugadores(query)
+    .map(h => ({ titulo: h.nombre, snippet: h.contexto, tab: h.contexto.includes('actual') ? 'plantel' : 'planteles' }));
+  if (jugadoresHits.length) resultados['Jugadores'] = jugadoresHits;
+
+  const dtHits = DTS_HISTORICOS.filter(d => normalizar(d.nombre + ' ' + d.dato).includes(q))
+    .map(d => ({ titulo: d.nombre, snippet: d.dato, tab: 'planteles' }));
+  if (dtHits.length) resultados['Directores técnicos'] = dtHits;
+
+  const apodoHits = Object.entries(APODOS_RIVALES).filter(([k, v]) => normalizar(k + ' ' + v.apodo).includes(q))
+    .map(([k, v]) => ({ titulo: v.apodo, snippet: v.origen, tab: 'resultados' }));
+  if (apodoHits.length) resultados['Rivales y apodos'] = apodoHits;
+
+  return resultados;
+}
+
+function renderBusquedaGlobal(query){
+  const wrap = document.getElementById('buscar-global-resultados');
+  const q = query.trim();
+  if (!q) { wrap.innerHTML = ''; return; }
+
+  const resultados = buscarGlobal(q);
+  const categorias = Object.keys(resultados);
+  if (!categorias.length) {
+    wrap.innerHTML = `<p class="mono" style="opacity:0.6;">No se encontró nada con "${q}".</p>`;
+    return;
+  }
+
+  wrap.innerHTML = categorias.map(cat => `
+    <div class="bg-categoria">${cat}</div>
+    ${resultados[cat].map(r => `
+      <div class="bg-hit" data-tab="${r.tab}">
+        <div class="titulo">${r.titulo}</div>
+        <div class="snippet">${r.snippet.length > 140 ? r.snippet.slice(0, 140) + '…' : r.snippet}</div>
+      </div>`).join('')}
+  `).join('');
+
+  wrap.querySelectorAll('.bg-hit').forEach(el => {
+    el.addEventListener('click', () => {
+      cerrarBusquedaGlobal();
+      const btn = document.querySelector(`.tabbtn[data-tab="${el.dataset.tab}"]`);
+      if (btn) btn.click();
+    });
+  });
+}
+
+function abrirBusquedaGlobal(){
+  document.getElementById('buscar-global-overlay').style.display = 'block';
+  document.getElementById('buscar-global-input').focus();
+}
+function cerrarBusquedaGlobal(){
+  document.getElementById('buscar-global-overlay').style.display = 'none';
+  document.getElementById('buscar-global-input').value = '';
+  document.getElementById('buscar-global-resultados').innerHTML = '';
+}
+
+document.getElementById('buscar-global-btn').addEventListener('click', abrirBusquedaGlobal);
+document.getElementById('buscar-global-cerrar').addEventListener('click', cerrarBusquedaGlobal);
+document.getElementById('buscar-global-input').addEventListener('input', (e) => renderBusquedaGlobal(e.target.value));
+document.getElementById('buscar-global-overlay').addEventListener('click', (e) => {
+  if (e.target.id === 'buscar-global-overlay') cerrarBusquedaGlobal();
+});
+
+let squadFilter = 'todos';
+function renderFilters(){
+  document.getElementById('filters').innerHTML = Object.keys(POS_LABELS).map(k =>
+    `<button class="filterbtn mono${k===squadFilter?' active':''}" data-k="${k}">${POS_LABELS[k]}</button>`).join('');
+  document.querySelectorAll('.filterbtn').forEach(b => b.addEventListener('click', () => {
+    squadFilter = b.dataset.k; renderFilters(); renderSquad();
+  }));
+}
+function renderSquad(){
+  const list = squadFilter === 'todos' ? SQUAD : SQUAD.filter(p => p.pos === squadFilter);
+  document.getElementById('squadgrid').innerHTML = list.map(p => `
+    <div class="player" style="display:flex; align-items:center; gap:0.7rem;">
+      <div style="width:40px; height:40px; border-radius:50%; background:var(--verde-deep); border:1px solid var(--verde-nilo); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono', monospace; font-size:0.85rem; color:var(--verde-bright); flex-shrink:0;">${iniciales(p.name)}</div>
+      <div>
+        <div class="name">${p.name}</div>
+        <div class="detail mono">${p.detail}${p.extra ? ' · ' + p.extra : ''}</div>
+      </div>
+    </div>`).join('');
+}
+
+function renderResults(){
+  document.getElementById('results').innerHTML = RESULTS.map(r => `
+    <div class="rrow">
+      <span class="date mono">${r.date}</span>
+      <span class="cond mono">${r.cond}</span>
+      <span class="rival">${r.rival}</span>
+      <span class="score mono">${r.score}</span>
+      <span class="scorers">${r.scorers}</span>
+    </div>`).join('');
+  renderRacha();
+  renderCompartir();
+}
+
+// ---------- COMPARTIR TARJETA DE RESULTADO ----------
+// Arma una imagen con el último resultado usando <canvas>, todo en el
+// celular (sin servidor), y la comparte con la función nativa del celular
+// (o la descarga, si el navegador no soporta compartir archivos).
+function renderCompartir(){
+  const wrap = document.getElementById('compartir-wrap');
+  if (!wrap) return;
+  if (!RESULTS.length) { wrap.innerHTML = ''; return; }
+  wrap.innerHTML = `
+    <button class="compartir-btn mono" id="compartir-btn">📤 Compartir último resultado</button>
+    <button class="compartir-btn mono" id="resumen-btn" style="margin-left:0.6rem;">📊 Resumen de temporada</button>`;
+  document.getElementById('compartir-btn').addEventListener('click', compartirResultado);
+  document.getElementById('resumen-btn').addEventListener('click', compartirResumenTemporada);
+}
+
+function cargarImagen(src){
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+async function compartirResultado(){
+  const btn = document.getElementById('compartir-btn');
+  const textoOriginal = btn.textContent;
+  btn.textContent = 'Armando imagen…';
+  btn.disabled = true;
+
+  try {
+    const r = RESULTS[0];
+    const letra = resultLetter(r.score);
+    const colorResultado = { g: '#f2c230', e: '#caa23c', p: '#9c4a2b' }[letra] || '#f2c230';
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 900;
+    canvas.height = 900;
+    const ctx = canvas.getContext('2d');
+
+    // Fondo
+    ctx.fillStyle = '#0c1830';
+    ctx.fillRect(0, 0, 900, 900);
+    ctx.strokeStyle = colorResultado;
+    ctx.lineWidth = 10;
+    ctx.strokeRect(20, 20, 860, 860);
+
+    // Título
+    ctx.fillStyle = '#f2c230';
+    ctx.font = '600 28px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText((r.cond === 'L' ? 'DE LOCAL' : 'DE VISITANTE') + ' · PRIMERA NACIONAL', 450, 100);
+
+    // Escudos
+    const ferroUrl = 'https://commons.wikimedia.org/wiki/Special:FilePath/Club-Atletico-Atlanta.png';
+    const rivalUrl = buscarEscudo(r.rival);
+    try {
+      const [ferroImg, rivalImg] = await Promise.all([
+        cargarImagen(ferroUrl),
+        rivalUrl ? cargarImagen(rivalUrl) : Promise.resolve(null),
+      ]);
+      ctx.drawImage(ferroImg, 130, 160, 220, 220);
+      if (rivalImg) ctx.drawImage(rivalImg, 550, 160, 220, 220);
+    } catch {
+      // si algún escudo no carga (CORS, sin conexión, etc.), seguimos sin imagen
+    }
+
+    // Marcador
+    ctx.fillStyle = '#f2ecd9';
+    ctx.font = '900 160px sans-serif';
+    ctx.fillText(r.score, 450, 560);
+
+    // Nombres
+    ctx.font = '600 34px sans-serif';
+    ctx.fillText('FERRO', 240, 630);
+    ctx.fillText(r.rival.toUpperCase(), 660, 630);
+
+    // Fecha y resultado
+    ctx.fillStyle = colorResultado;
+    ctx.font = '700 30px monospace';
+    const textoResultado = letra === 'g' ? 'VICTORIA' : letra === 'p' ? 'DERROTA' : 'EMPATE';
+    ctx.fillText(`${textoResultado} · ${r.date}`, 450, 720);
+
+    // Pie de marca
+    ctx.fillStyle = 'rgba(242,236,217,0.5)';
+    ctx.font = '400 22px monospace';
+    ctx.fillText('Club Atlético Atlanta · Villa Crespo', 450, 820);
+
+    canvas.toBlob(async (blob) => {
+      const file = new File([blob], 'ferro-resultado.png', { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'Resultado de Atlanta',
+          text: `Atlanta ${r.score} ${r.rival}`,
+        });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'ferro-resultado.png';
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      btn.textContent = textoOriginal;
+      btn.disabled = false;
+    }, 'image/png');
+  } catch (err) {
+    console.warn('No se pudo compartir el resultado:', err);
+    btn.textContent = textoOriginal;
+    btn.disabled = false;
+  }
+}
+
+// ---------- RESUMEN DE TEMPORADA ----------
+// Trae la fila de Atlanta en la tabla de la Zona B (posición, PJ, G, E, P,
+// goles) y arma una tarjeta resumen con eso más la racha reciente, usando la
+// misma técnica de <canvas> que "compartir resultado".
+// Trae la fila de Atlanta en la tabla de la Zona B, reusando lo ya cargado si
+// existe (para el comparador) o pidiéndolo fresco si hace falta.
+async function obtenerAtlantaEnTabla(){
+  let atlantaRow = equiposPorZona.B.find(e => /atlanta/i.test(e.equipo));
+  if (!atlantaRow) {
+    const resp = await fetch(`${WORKER_BASE}/standings?zona=B`, { cache: 'no-store' });
+    if (resp.ok) {
+      const data = await resp.json();
+      atlantaRow = (data.equipos || []).find(e => /atlanta/i.test(e.equipo));
+    }
+  }
+  return atlantaRow || null;
+}
+
+// El torneo tiene 36 fechas en total (fase de zonas, ida y vuelta entre 18
+// equipos). El PJ de Atlanta en la tabla nos dice en qué fecha estamos, sin
+// necesitar scrapear ese número específico de ningún lado.
+const FECHAS_TOTALES = 36;
+
+async function renderFechasRestantes(){
+  const wrap = document.getElementById('fechas-restantes-wrap');
+  if (!wrap) return;
+  try {
+    const atlantaRow = await obtenerAtlantaEnTabla();
+    if (!atlantaRow || atlantaRow.jugados == null) { wrap.innerHTML = ''; return; }
+    const restantes = FECHAS_TOTALES - atlantaRow.jugados;
+    wrap.innerHTML = `
+      <div class="standing" style="margin-top:0.5rem;">
+        <span>Fechas restantes (fase de zonas)</span>
+        <span class="pos mono">${restantes} de ${FECHAS_TOTALES}</span>
+      </div>`;
+  } catch (err) {
+    console.warn('No se pudo calcular fechas restantes:', err);
+    wrap.innerHTML = '';
+  }
+}
+
+async function compartirResumenTemporada(){
+  const btn = document.getElementById('resumen-btn');
+  const textoOriginal = btn.textContent;
+  btn.textContent = 'Armando resumen…';
+  btn.disabled = true;
+
+  try {
+    const atlantaRow = await obtenerAtlantaEnTabla();
+    if (!atlantaRow) throw new Error('No se pudo obtener la posición de Atlanta en la tabla');
+
+    const canvas = document.createElement('canvas');
+    canvas.width = 900;
+    canvas.height = 1000;
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = '#0c1830';
+    ctx.fillRect(0, 0, 900, 1000);
+    ctx.strokeStyle = '#f2c230';
+    ctx.lineWidth = 10;
+    ctx.strokeRect(20, 20, 860, 960);
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#f2c230';
+    ctx.font = '600 26px monospace';
+    ctx.fillText('RESUMEN DE TEMPORADA · PRIMERA NACIONAL', 450, 100);
+
+    try {
+      const atlantaImg = await cargarImagen('https://commons.wikimedia.org/wiki/Special:FilePath/Club-Atletico-Atlanta.png');
+      ctx.drawImage(atlantaImg, 350, 130, 200, 200);
+    } catch { /* seguimos sin el escudo si no carga */ }
+
+    ctx.fillStyle = '#f2ecd9';
+    ctx.font = '900 90px sans-serif';
+    ctx.fillText(`${atlantaRow.pos}°`, 450, 440);
+    ctx.font = '600 30px sans-serif';
+    ctx.fillText('EN LA ZONA B', 450, 480);
+
+    // Fila de estadísticas
+    const stats = [
+      { label: 'PJ', val: atlantaRow.jugados },
+      { label: 'G', val: atlantaRow.ganados },
+      { label: 'E', val: atlantaRow.empatados },
+      { label: 'P', val: atlantaRow.perdidos },
+      { label: 'GF', val: atlantaRow.gf },
+      { label: 'GC', val: atlantaRow.gc },
+      { label: 'PTS', val: atlantaRow.pts },
+    ];
+    const startX = 130;
+    const gap = (900 - 260) / (stats.length - 1);
+    stats.forEach((s, i) => {
+      const x = startX + i * gap;
+      ctx.fillStyle = '#f2ecd9';
+      ctx.font = '700 40px monospace';
+      ctx.fillText(String(s.val), x, 580);
+      ctx.fillStyle = '#f2c230';
+      ctx.font = '600 20px monospace';
+      ctx.fillText(s.label, x, 610);
+    });
+
+    // Racha reciente (últimos resultados disponibles)
+    ctx.fillStyle = '#caa23c';
+    ctx.font = '600 24px monospace';
+    ctx.fillText('RACHA RECIENTE', 450, 690);
+
+    const ultimos = RESULTS.slice(0, 5).reverse();
+    const colores = { g: '#f2c230', e: '#caa23c', p: '#9c4a2b' };
+    const labels = { g: 'G', e: 'E', p: 'P' };
+    const totalW = ultimos.length * 90;
+    const startCx = 450 - totalW / 2 + 45;
+    ultimos.forEach((r, i) => {
+      const letra = resultLetter(r.score);
+      const cx = startCx + i * 90;
+      ctx.beginPath();
+      ctx.arc(cx, 750, 35, 0, Math.PI * 2);
+      ctx.fillStyle = colores[letra] || '#666';
+      ctx.fill();
+      ctx.fillStyle = letra === 'p' ? '#f2ecd9' : '#0c1830';
+      ctx.font = '700 30px sans-serif';
+      ctx.fillText(labels[letra] || '?', cx, 761);
+    });
+
+    ctx.fillStyle = 'rgba(242,236,217,0.5)';
+    ctx.font = '400 20px monospace';
+    ctx.fillText('Club Atlético Atlanta · Villa Crespo', 450, 900);
+
+    canvas.toBlob(async (blob) => {
+      const file = new File([blob], 'ferro-resumen-temporada.png', { type: 'image/png' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'Resumen de temporada de Atlanta',
+          text: `Atlanta está ${atlantaRow.pos}° en la Zona B con ${atlantaRow.pts} puntos`,
+        });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'ferro-resumen-temporada.png';
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      btn.textContent = textoOriginal;
+      btn.disabled = false;
+    }, 'image/png');
+  } catch (err) {
+    console.warn('No se pudo armar el resumen de temporada:', err);
+    btn.textContent = textoOriginal;
+    btn.disabled = false;
+  }
+}
+
+// El "score" siempre viene como "goles de Atlanta - goles del rival" (así lo
+// entrega el scraper), sin importar si Atlanta jugó de local o visitante.
+function resultLetter(score){
+  const m = /^(\d+)\s*-\s*(\d+)$/.exec((score || '').trim());
+  if (!m) return null;
+  const [, gf, gc] = m.map(Number);
+  if (gf > gc) return 'g';
+  if (gf < gc) return 'p';
+  return 'e';
+}
+
+function renderRacha(){
+  const wrap = document.getElementById('racha-wrap');
+  if (!wrap) return;
+  const ultimos = RESULTS.slice(0, 5).reverse(); // más viejo a la izquierda, más reciente a la derecha
+  if (!ultimos.length) { wrap.innerHTML = ''; return; }
+
+  const labels = { g: 'G', e: 'E', p: 'P' };
+  const icons = ultimos.map(r => {
+    const letra = resultLetter(r.score);
+    if (!letra) return '';
+    return `<div class="racha-icon ${letra}" title="${r.rival}: ${r.score}">${labels[letra]}</div>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="racha">
+      <div class="label mono">Racha (últimos ${ultimos.length})</div>
+      <div class="racha-icons">${icons}</div>
+    </div>`;
+  renderRachaLocalVisitante();
+}
+
+// Misma racha de arriba, pero separada en los últimos partidos de local y los
+// últimos de visitante — usando el campo "cond" (L/V) que ya viene en cada
+// resultado, sin necesitar ningún dato nuevo.
+function renderRachaFila(cond, etiqueta){
+  const labels = { g: 'G', e: 'E', p: 'P' };
+  const partidos = RESULTS.filter(r => r.cond === cond).slice(0, 5).reverse();
+  if (!partidos.length) return '';
+  const icons = partidos.map(r => {
+    const letra = resultLetter(r.score);
+    if (!letra) return '';
+    return `<div class="racha-icon ${letra}" title="${r.rival}: ${r.score}">${labels[letra]}</div>`;
+  }).join('');
+  return `
+    <div class="racha">
+      <div class="label mono">${etiqueta} (últimos ${partidos.length})</div>
+      <div class="racha-icons">${icons}</div>
+    </div>`;
+}
+
+function renderRachaLocalVisitante(){
+  const wrap = document.getElementById('racha-lv-wrap');
+  if (!wrap) return;
+  const local = renderRachaFila('L', 'De local');
+  const visitante = renderRachaFila('V', 'De visitante');
+  wrap.innerHTML = local + visitante;
+}
+
+function renderProximos(){
+  const wrap = document.getElementById('proximo-wrap');
+  const heroEl = document.getElementById('countdown-hero');
+  const heroCard = document.getElementById('hero-proximo');
+  if (!PROXIMOS.length) {
+    wrap.innerHTML = `<p class="mono" style="font-size:0.8rem; opacity:0.5;">Conectá el Worker (ver README) para ver la cuenta regresiva al próximo partido.</p>`;
+    if (heroEl) heroEl.innerHTML = '';
+    if (heroCard) heroCard.innerHTML = '';
+    stopCountdown();
+    return;
+  }
+  const p = PROXIMOS[0];
+  const esLocal = p.condicion === 'L';
+  const rivalVs = esLocal ? `Atlanta vs ${p.rival}` : `${p.rival} vs Atlanta`;
+  const condLabel = esLocal ? 'Local · Estadio Etcheverry' : 'Visitante';
+  const fechaLegible = formatFechaLegible(p);
+
+  wrap.innerHTML = `
+    <div class="proximo">
+      <div class="tag mono">Próximo partido</div>
+      <div class="match">${rivalVs}</div>
+      <div class="mono" style="font-size:0.8rem; opacity:0.8; margin-top:0.2rem;">${p.dia} · ${p.dato || 'hora a confirmar'}</div>
+      <div class="countdown-box" id="countdown-detail"></div>
+      <div id="clima-wrap"></div>
+      <div id="prediccion-wrap"></div>
+    </div>`;
+
+  if (heroCard) {
+    const ferroCrest = '<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Club-Atletico-Atlanta.png" alt="Escudo de Atlanta" style="width:36px; height:36px; object-fit:contain;">';
+    const rivalCrest = escudoHtml(p.rival, 36);
+    const [crestIzq, crestDer] = esLocal ? [ferroCrest, rivalCrest] : [rivalCrest, ferroCrest];
+    heroCard.innerHTML = `
+      <div class="tag mono">Próximo partido</div>
+      <div class="match-row">${crestIzq}<span class="match">${rivalVs}</span>${crestDer}</div>
+      <div class="cond mono">${condLabel}</div>
+      <div class="when mono">${fechaLegible}${p.dato ? ' · ' + p.dato + ' hs' : ''}</div>`;
+  }
+
+  startCountdown(p);
+  renderRivales();
+  fetchClima(p);
+  renderPrediccion(p);
+}
+
+// ---------- CLIMA DEL DÍA DEL PARTIDO ----------
+// Usa Open-Meteo (gratis, sin clave, con CORS abierto) para el pronóstico del
+// día del próximo partido. Solo se puede pedir hasta 16 días a futuro — si el
+// partido está más lejos, no mostramos nada en vez de inventar un dato.
+const CABALLITO_LAT = -34.5950;
+const CABALLITO_LON = -58.4493;
+
+// Códigos WMO de Open-Meteo simplificados a emoji + texto corto.
+function climaDesc(code){
+  if (code === 0) return { icon: '☀️', texto: 'despejado' };
+  if ([1, 2].includes(code)) return { icon: '🌤️', texto: 'poco nublado' };
+  if (code === 3) return { icon: '☁️', texto: 'nublado' };
+  if ([45, 48].includes(code)) return { icon: '🌫️', texto: 'niebla' };
+  if ([51, 53, 55, 56, 57].includes(code)) return { icon: '🌦️', texto: 'llovizna' };
+  if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return { icon: '🌧️', texto: 'lluvia' };
+  if ([71, 73, 75, 77, 85, 86].includes(code)) return { icon: '🌨️', texto: 'nieve' };
+  if ([95, 96, 99].includes(code)) return { icon: '⛈️', texto: 'tormenta' };
+  return { icon: '🌡️', texto: '' };
+}
+
+async function fetchClima(proximo){
+  const wrap = document.getElementById('clima-wrap');
+  if (!wrap) return;
+
+  const target = parseProximoDate(proximo);
+  if (!target) { wrap.innerHTML = ''; return; }
+
+  const hoy = new Date();
+  const diffDias = Math.round((target - hoy) / 86400000);
+  if (diffDias < 0 || diffDias > 15) { wrap.innerHTML = ''; return; } // fuera del rango del pronóstico
+
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${CABALLITO_LAT}&longitude=${CABALLITO_LON}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=America%2FArgentina%2FBuenos_Aires&forecast_days=16`;
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error('respuesta no OK');
+    const data = await resp.json();
+
+    const fechaTarget = target.toISOString().slice(0, 10);
+    const idx = data.daily.time.indexOf(fechaTarget);
+    if (idx === -1) { wrap.innerHTML = ''; return; }
+
+    const code = data.daily.weather_code[idx];
+    const tmax = Math.round(data.daily.temperature_2m_max[idx]);
+    const tmin = Math.round(data.daily.temperature_2m_min[idx]);
+    const lluvia = data.daily.precipitation_probability_max[idx];
+    const { icon, texto } = climaDesc(code);
+
+    wrap.innerHTML = `
+      <div class="clima-box">
+        <span class="clima-icon">${icon}</span>
+        <span class="mono">${tmin}° / ${tmax}° · ${texto}${lluvia != null ? ' · ' + lluvia + '% lluvia' : ''}</span>
+      </div>`;
+  } catch (err) {
+    console.warn('No se pudo traer el clima:', err);
+    wrap.innerHTML = '';
+  }
+}
+
+// ---------- PREDICCIÓN DEL RESULTADO ----------
+// Se guarda solo en este celular (localStorage), nunca se manda a ningún
+// servidor. La clave identifica el partido por rival + fecha, así que sirve
+// para un solo próximo partido a la vez.
+const PREDICCION_KEY = 'ferro_prediccion';
+
+function partidoId(p){
+  return `${normalizar(p.rival)}|${p.dia}`;
+}
+
+function getPrediccionGuardada(){
+  try {
+    const raw = localStorage.getItem(PREDICCION_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+
+function guardarPrediccion(id, golFerro, golRival){
+  localStorage.setItem(PREDICCION_KEY, JSON.stringify({ id, golFerro, golRival, resuelta: false }));
+}
+
+function renderPrediccion(proximo){
+  const wrap = document.getElementById('prediccion-wrap');
+  if (!wrap) return;
+  const id = partidoId(proximo);
+  const guardada = getPrediccionGuardada();
+
+  // Ya hay una predicción guardada para ESTE partido puntual
+  if (guardada && guardada.id === id) {
+    wrap.innerHTML = `
+      <div class="prediccion">
+        <div class="label mono">Tu predicción</div>
+        <div class="prediccion-guardada mono">Atlanta ${guardada.golFerro} - ${guardada.golRival} ${proximo.rival}</div>
+      </div>`;
+    return;
+  }
+
+  // No hay predicción para este partido todavía: mostrar el formulario
+  wrap.innerHTML = `
+    <div class="prediccion">
+      <div class="label mono">¿Cómo termina?</div>
+      <div class="prediccion-form">
+        <span class="mono">Atlanta</span>
+        <input type="number" min="0" max="20" id="pred-ferro" inputmode="numeric">
+        <span>-</span>
+        <input type="number" min="0" max="20" id="pred-rival" inputmode="numeric">
+        <span class="mono">${proximo.rival}</span>
+        <button id="pred-guardar">Guardar</button>
+      </div>
+    </div>`;
+
+  document.getElementById('pred-guardar').addEventListener('click', () => {
+    const gf = document.getElementById('pred-ferro').value;
+    const gr = document.getElementById('pred-rival').value;
+    if (gf === '' || gr === '') return;
+    guardarPrediccion(id, Number(gf), Number(gr));
+    renderPrediccion(proximo);
+  });
+}
+
+// Compara la predicción guardada contra un resultado real ya publicado, y
+// muestra si acertaste el marcador exacto, el resultado (G/E/P), o ninguno.
+// Se llama cada vez que llegan resultados nuevos del Worker.
+function chequearPrediccion(){
+  const guardada = getPrediccionGuardada();
+  if (!guardada || guardada.resuelta) return;
+
+  const real = RESULTS.find(r => `${normalizar(r.rival)}|${r.date}` === guardada.id);
+  if (!real) return; // el partido todavía no se jugó (o no está en los resultados recientes)
+
+  const m = /^(\d+)\s*-\s*(\d+)$/.exec((real.score || '').trim());
+  if (!m) return;
+  const [, gfReal, grReal] = m.map(Number);
+
+  const exacto = guardada.golFerro === gfReal && guardada.golRival === grReal;
+  const resultadoPredicho = guardada.golFerro > guardada.golRival ? 'G' : guardada.golFerro < guardada.golRival ? 'P' : 'E';
+  const resultadoReal = gfReal > grReal ? 'G' : gfReal < grReal ? 'P' : 'E';
+  const acertoResultado = resultadoPredicho === resultadoReal;
+
+  guardada.resuelta = true;
+  guardada.acierto = exacto ? 'exacto' : acertoResultado ? 'parcial' : 'fallo';
+  guardada.real = `${gfReal}-${grReal}`;
+  localStorage.setItem(PREDICCION_KEY, JSON.stringify(guardada));
+
+  const wrap = document.getElementById('prediccion-wrap');
+  if (!wrap) return;
+  const mensajes = {
+    exacto: '🎯 ¡Le diste justo al marcador!',
+    parcial: '👍 Acertaste el resultado, el marcador no fue exacto.',
+    fallo: '❌ Esta vez no acertaste.',
+  };
+  wrap.innerHTML = `
+    <div class="prediccion">
+      <div class="label mono">Tu predicción</div>
+      <div class="prediccion-guardada mono">Vos dijiste ${guardada.golFerro}-${guardada.golRival} · Terminó ${guardada.real}</div>
+      <div class="prediccion-resultado ${guardada.acierto}">${mensajes[guardada.acierto]}</div>
+    </div>`;
+}
+
+// Tarjetas de próximos rivales, cada una con un botón que abre una búsqueda
+// de Google ya armada con el historial de enfrentamientos. No hay ninguna
+// fuente confiable para scrapear ese historial, así que en vez de mostrar
+// datos que se pueden desactualizar o romper, dejamos que cada uno abra
+// resultados reales y actuales cuando lo necesite.
+// Mismo criterio flexible que buscarEscudo, para no depender de que el
+// nombre venga escrito exactamente igual.
+function buscarApodo(nombre){
+  const n = normalizar(nombre);
+  if (APODOS_RIVALES[n]) return APODOS_RIVALES[n];
+  const key = Object.keys(APODOS_RIVALES).find(k => n.includes(k) || k.includes(n));
+  return key ? APODOS_RIVALES[key] : null;
+}
+
+function renderRivales(){
+  const wrap = document.getElementById('rivales-wrap');
+  if (!wrap) return;
+  if (!PROXIMOS.length) { wrap.innerHTML = ''; return; }
+
+  const proximos = PROXIMOS.slice(0, 5);
+  const cards = proximos.map(p => {
+    const query = encodeURIComponent(`Atlanta vs ${p.rival} historial enfrentamientos`);
+    const url = `https://www.google.com/search?q=${query}`;
+    const condLabel = p.condicion === 'L' ? 'Local' : 'Visitante';
+    const apodoInfo = buscarApodo(p.rival);
+    const apodoHtml = apodoInfo
+      ? `<div class="apodo mono" title="${apodoInfo.origen}">${apodoInfo.apodo} ℹ️</div>`
+      : '';
+    return `
+      <div class="rival-card">
+        <div class="info" style="display:flex; align-items:center; gap:0.7rem;">
+          ${escudoHtml(p.rival, 32)}
+          <div>
+            <div class="name">${p.rival}</div>
+            ${apodoHtml}
+            <div class="when mono">${p.dia}${p.dato ? ' · ' + p.dato : ''} · ${condLabel}</div>
+          </div>
+        </div>
+        <a class="rival-btn" href="${url}" target="_blank" rel="noopener noreferrer">Ver historial ↗</a>
+      </div>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="rivales">
+      <div class="label mono">Próximos rivales</div>
+      ${cards}
+    </div>`;
+}
+
+// Convierte "DD/MM" en algo legible tipo "vie. 18 de jul." usando el mismo
+// cálculo de año que la cuenta regresiva (parseProximoDate).
+function formatFechaLegible(p){
+  const date = parseProximoDate(p);
+  if (!date) return p.dia;
+  const dias = ['dom.', 'lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.'];
+  const meses = ['ene.', 'feb.', 'mar.', 'abr.', 'may.', 'jun.', 'jul.', 'ago.', 'sep.', 'oct.', 'nov.', 'dic.'];
+  return `${dias[date.getDay()]} ${date.getDate()} de ${meses[date.getMonth()]}`;
+}
+
+// ---------- CUENTA REGRESIVA AL PRÓXIMO PARTIDO ----------
+let countdownInterval = null;
+let livePollInterval = null;
+let liveStatusText = null;
+
+// "dia" viene como DD/MM (sin año) y "dato" como HH:MM. Arma una fecha real,
+// asumiendo el año actual (o el que viene, si esa fecha ya pasó este año).
+function parseProximoDate(p){
+  const [d, m] = (p.dia || '').split('/').map(Number);
+  if (!d || !m) return null;
+  const [hh, mm] = (p.dato && /^\d{1,2}:\d{2}$/.test(p.dato)) ? p.dato.split(':').map(Number) : [12, 0];
+
+  const now = new Date();
+  let year = now.getFullYear();
+  let target = new Date(year, m - 1, d, hh, mm, 0);
+  if (target.getTime() < now.getTime() - 3 * 60 * 60 * 1000) {
+    target = new Date(year + 1, m - 1, d, hh, mm, 0);
+  }
+  return target;
+}
+
+function startCountdown(proximo){
+  stopCountdown();
+  stopLivePoll();
+  liveStatusText = null;
+  const target = parseProximoDate(proximo);
+  if (!target) return;
+
+  function tick(){
+    const diffMs = target.getTime() - Date.now();
+    const heroEl = document.getElementById('countdown-hero');
+    const detailEl = document.getElementById('countdown-detail');
+
+    if (diffMs <= 0 && diffMs > -3 * 60 * 60 * 1000) {
+      startLivePoll(proximo);
+      renderLiveStatus();
+      return;
+    }
+    if (diffMs <= 0) {
+      stopLivePoll();
+      if (heroEl) heroEl.innerHTML = '';
+      if (detailEl) detailEl.innerHTML = '';
+      stopCountdown();
+      return;
+    }
+
+    const totalSec = Math.floor(diffMs / 1000);
+    const days = Math.floor(totalSec / 86400);
+    const hours = Math.floor((totalSec % 86400) / 3600);
+    const mins = Math.floor((totalSec % 3600) / 60);
+    const secs = totalSec % 60;
+    const pad = (n) => String(n).padStart(2, '0');
+
+    if (heroEl) {
+      heroEl.innerHTML = `<span class="mono">Próximo partido en ${days}d ${pad(hours)}:${pad(mins)}:${pad(secs)}</span>`;
+    }
+    if (detailEl) {
+      detailEl.innerHTML = `
+        <div class="unit"><div class="num">${days}</div><div class="lbl mono">días</div></div>
+        <div class="unit"><div class="num">${pad(hours)}</div><div class="lbl mono">hs</div></div>
+        <div class="unit"><div class="num">${pad(mins)}</div><div class="lbl mono">min</div></div>
+        <div class="unit"><div class="num">${pad(secs)}</div><div class="lbl mono">seg</div></div>`;
+    }
+  }
+
+  tick();
+  countdownInterval = setInterval(tick, 1000);
+}
+
+function stopCountdown(){
+  if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+}
+
+// Mientras el partido está "en curso" (entre la hora de inicio y +3hs), la app
+// sondea el Worker cada 60 segundos para detectar cambios: si Promiedos ya
+// publicó el resultado final, o si el dato del próximo partido dejó de ser
+// un horario (HH:MM) — señal de que puede haber un marcador en vivo.
+// Esto es lo mejor que se puede armar sin una fuente de datos minuto a minuto:
+// no hay garantía de que Promiedos muestre el marcador mientras el partido
+// está en curso, así que puede quedarse en "Atlanta está jugando ahora" sin más
+// detalle hasta que termine.
+function startLivePoll(proximo){
+  if (livePollInterval) return;
+
+  const poll = async () => {
+    try {
+      const resp = await fetch(`${WORKER_BASE}/fixture`, { cache: 'no-store' });
+      if (!resp.ok) return;
+      const data = await resp.json();
+
+      const finished = (data.resultados || []).find(
+        (r) => r.rival === proximo.rival && r.dia === proximo.dia
+      );
+      if (finished) {
+        liveStatusText = `Final: ${finished.dato}`;
+        renderLiveStatus();
+        stopLivePoll();
+        return;
+      }
+
+      const stillProximo = (data.proximos || []).find(
+        (p) => p.rival === proximo.rival && p.dia === proximo.dia
+      );
+      if (stillProximo && stillProximo.dato && !/^\d{1,2}:\d{2}$/.test(stillProximo.dato)) {
+        liveStatusText = stillProximo.dato;
+      }
+      renderLiveStatus();
+    } catch (err) {
+      console.warn('No se pudo actualizar el estado en vivo:', err);
+    }
+  };
+
+  poll();
+  livePollInterval = setInterval(poll, 60000);
+}
+
+function stopLivePoll(){
+  if (livePollInterval) { clearInterval(livePollInterval); livePollInterval = null; }
+}
+
+function renderLiveStatus(){
+  const heroEl = document.getElementById('countdown-hero');
+  const detailEl = document.getElementById('countdown-detail');
+  const text = liveStatusText ? `⚽ ${liveStatusText}` : '⚽ Atlanta está jugando ahora';
+  if (heroEl) heroEl.innerHTML = `<span class="mono" style="color:var(--brass);">${text}</span>`;
+  if (detailEl) detailEl.innerHTML = `<span class="mono" style="color:var(--brass);">${text}</span>`;
+}
+
+// Trae fixture y resultados en vivo desde el Worker de Cloudflare (worker.js).
+// Si falla (sin conexión, Worker no desplegado, etc.) se queda con los datos fijos de respaldo.
+async function fetchLiveData(){
+  const fuenteEl = document.getElementById('fuente-datos');
+  try {
+    const resp = await fetch(`${WORKER_BASE}/fixture`, { cache: 'no-store' });
+    if (!resp.ok) throw new Error('respuesta no OK');
+    const data = await resp.json();
+
+    if (data.resultados && data.resultados.length) {
+      RESULTS = data.resultados.map((r, i) => ({
+        fecha: data.resultados.length - i,
+        date: r.dia,
+        rival: r.rival,
+        cond: r.condicion,
+        score: r.dato,
+        scorers: '',
+      }));
+      renderResults();
+    }
+    if (data.proximos && data.proximos.length) {
+      PROXIMOS = data.proximos;
+      renderProximos();
+    }
+    chequearPrediccion();
+    renderFechasRestantes();
+    if (fuenteEl) {
+      const actualizado = data.actualizado ? new Date(data.actualizado).toLocaleString('es-AR') : '';
+      fuenteEl.textContent = `Datos en vivo desde Promiedos · actualizado ${actualizado}`;
+    }
+  } catch (err) {
+    console.warn('No se pudo traer el fixture en vivo, se usan los datos fijos:', err);
+  }
+  updateBadge();
+}
+
+// ---------- ÍCONO CON BADGE (resultado nuevo sin ver) ----------
+// Requiere la Badging API (navigator.setAppBadge), disponible en Chrome/Edge
+// de escritorio y Android cuando la app está instalada. En navegadores sin
+// soporte esto simplemente no hace nada — no rompe la app.
+const SEEN_KEY = 'ferro_last_seen_result';
+
+function resultFingerprint(r){
+  return `${r.date}|${r.rival}|${r.score}`;
+}
+
+function updateBadge(){
+  if (!('setAppBadge' in navigator) || !RESULTS.length) return;
+  const seen = localStorage.getItem(SEEN_KEY);
+
+  // Primera vez que se abre la app: arrancamos a trackear desde acá,
+  // sin marcar los resultados fijos existentes como si fueran todos nuevos.
+  if (seen === null) {
+    localStorage.setItem(SEEN_KEY, resultFingerprint(RESULTS[0]));
+    return;
+  }
+
+  let newCount = 0;
+  for (const r of RESULTS) {
+    if (resultFingerprint(r) === seen) break;
+    newCount++;
+  }
+
+  if (newCount > 0) {
+    navigator.setAppBadge(newCount).catch(() => {});
+  } else {
+    navigator.clearAppBadge().catch(() => {});
+  }
+}
+
+function markResultsAsSeen(){
+  if (!RESULTS.length) return;
+  localStorage.setItem(SEEN_KEY, resultFingerprint(RESULTS[0]));
+  if ('clearAppBadge' in navigator) navigator.clearAppBadge().catch(() => {});
+}
+
+// ---------- TABS ----------
+// ---------- TABLA COMPLETA DE AMBAS ZONAS ----------
+let standingsLoaded = false;
+
+function renderStandings(data, zona){
+  const wrap = document.getElementById(`standings-table-wrap-${zona}`);
+  if (!data || !data.equipos || !data.equipos.length) {
+    wrap.innerHTML = `
+      <div class="eyebrow mono">Zona ${zona}</div>
+      <p class="mono" style="font-size:0.8rem; opacity:0.55;">No se pudo traer la tabla en este momento. Probá de nuevo más tarde.</p>`;
+    return;
+  }
+  const rows = data.equipos.map(e => {
+    const esAtlanta = /atlanta/i.test(e.equipo);
+    const escudo = esAtlanta
+      ? '<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Club-Atletico-Atlanta.png" alt="Escudo de Atlanta" style="width:20px; height:20px; object-fit:contain;">'
+      : escudoHtml(e.equipo, 20);
+    return `
+    <tr class="${esAtlanta ? 'me' : ''}">
+      <td>${e.pos}</td>
+      <td class="team-cell">${escudo}<span>${e.equipo}</span></td>
+      <td>${e.jugados}</td>
+      <td>${e.ganados}</td>
+      <td>${e.empatados}</td>
+      <td>${e.perdidos}</td>
+      <td>${e.gf}</td>
+      <td>${e.gc}</td>
+      <td>${e.dif > 0 ? '+' + e.dif : e.dif}</td>
+      <td><strong>${e.pts}</strong></td>
+    </tr>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="eyebrow mono">Zona ${data.grupo}</div>
+    <table class="standings-table">
+      <thead>
+        <tr>
+          <th>#</th><th>Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>GF</th><th>GC</th><th>DIF</th><th>PTS</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <p class="mono" style="font-size:0.72rem; opacity:0.5; margin-top:0.8rem;">Fuente: Wikipedia · actualizado ${new Date(data.actualizado).toLocaleString('es-AR')} · puede estar algo atrasada respecto al último resultado</p>`;
+}
+
+// Guarda los equipos de cada zona una vez cargados, para el comparador rápido.
+const equiposPorZona = { A: [], B: [] };
+
+async function loadZona(zona){
+  const wrap = document.getElementById(`standings-table-wrap-${zona}`);
+  wrap.innerHTML = `<p class="mono" style="font-size:0.8rem; opacity:0.55;">Cargando tabla de la Zona ${zona}…</p>`;
+  try {
+    const resp = await fetch(`${WORKER_BASE}/standings?zona=${zona}`, { cache: 'no-store' });
+    if (!resp.ok) throw new Error('respuesta no OK');
+    const data = await resp.json();
+    renderStandings(data, zona);
+    equiposPorZona[zona] = data.equipos || [];
+    poblarComparador();
+  } catch (err) {
+    console.warn(`No se pudo traer la tabla de la Zona ${zona}:`, err);
+    wrap.innerHTML = `
+      <div class="eyebrow mono">Zona ${zona}</div>
+      <p class="mono" style="font-size:0.8rem; opacity:0.55;">No se pudo traer la tabla (¿desplegaste el Worker? ver README).</p>`;
+  }
+}
+
+async function loadStandings(){
+  await loadZona('A');
+  await loadZona('B');
+  standingsLoaded = true;
+}
+
+// ---------- COMPARADOR RÁPIDO ----------
+function poblarComparador(){
+  const todos = [...equiposPorZona.A, ...equiposPorZona.B];
+  if (!todos.length) return;
+  const opciones = todos
+    .map((e, i) => `<option value="${i}">${e.equipo}</option>`)
+    .join('');
+  ['comp-equipo-a', 'comp-equipo-b'].forEach(id => {
+    const select = document.getElementById(id);
+    const actual = select.value;
+    select.innerHTML = `<option value="">Elegí un equipo…</option>${opciones}`;
+    if (actual) select.value = actual;
+  });
+}
+
+function renderComparador(){
+  const wrap = document.getElementById('comparador-resultado');
+  const idxA = document.getElementById('comp-equipo-a').value;
+  const idxB = document.getElementById('comp-equipo-b').value;
+  if (idxA === '' || idxB === '') { wrap.innerHTML = ''; return; }
+
+  const todos = [...equiposPorZona.A, ...equiposPorZona.B];
+  const a = todos[Number(idxA)];
+  const b = todos[Number(idxB)];
+  if (!a || !b) { wrap.innerHTML = ''; return; }
+
+  const stats = [
+    { label: 'Posición', a: a.pos, b: b.pos, menorGana: true },
+    { label: 'PJ', a: a.jugados, b: b.jugados },
+    { label: 'Ganados', a: a.ganados, b: b.ganados },
+    { label: 'Empatados', a: a.empatados, b: b.empatados },
+    { label: 'Perdidos', a: a.perdidos, b: b.perdidos, menorGana: true },
+    { label: 'GF', a: a.gf, b: b.gf },
+    { label: 'GC', a: a.gc, b: b.gc, menorGana: true },
+    { label: 'Dif', a: a.dif, b: b.dif },
+    { label: 'Puntos', a: a.pts, b: b.pts },
+  ];
+
+  const filas = stats.map(s => {
+    const aGana = s.menorGana ? s.a < s.b : s.a > s.b;
+    const bGana = s.menorGana ? s.b < s.a : s.b > s.a;
+    return `
+      <tr>
+        <td class="stat-label">${s.label}</td>
+        <td class="${aGana ? 'better' : ''}">${s.a ?? '—'}</td>
+        <td class="${bGana ? 'better' : ''}">${s.b ?? '—'}</td>
+      </tr>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th><div class="team-header">${escudoHtml(a.equipo, 32)}<span class="name">${a.equipo}</span></div></th>
+          <th><div class="team-header">${escudoHtml(b.equipo, 32)}<span class="name">${b.equipo}</span></div></th>
+        </tr>
+      </thead>
+      <tbody>${filas}</tbody>
+    </table>`;
+}
+
+document.getElementById('comp-equipo-a').addEventListener('change', renderComparador);
+document.getElementById('comp-equipo-b').addEventListener('change', renderComparador);
+
+document.getElementById('toggle-standings').addEventListener('click', (e) => {
+  const wrap = document.getElementById('standings-wrap');
+  const isHidden = wrap.style.display === 'none';
+  wrap.style.display = isHidden ? 'block' : 'none';
+  e.target.textContent = isHidden ? 'Ocultar tabla completa ▴' : 'Ver tabla completa de la zona ▾';
+  if (isHidden && !standingsLoaded) loadStandings();
+});
+
+document.querySelectorAll('.tabbtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tabbtn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('main section').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    window.scrollTo({top: 0, behavior:'smooth'});
+    if (btn.dataset.tab === 'resultados') markResultsAsSeen();
+  });
+});
+
+// ---------- TEMA CLARO / OSCURO ----------
+const THEME_KEY = 'ferro_theme';
+
+function aplicarTema(tema){
+  if (tema === 'light') {
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.getElementById('theme-toggle-btn').textContent = '☀️';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('theme-toggle-btn').textContent = '🌙';
+  }
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) metaTheme.setAttribute('content', tema === 'light' ? '#f5f0e0' : '#0c1830');
+}
+
+function alternarTema(){
+  const actual = localStorage.getItem(THEME_KEY) === 'light' ? 'light' : 'dark';
+  const nuevo = actual === 'light' ? 'dark' : 'light';
+  localStorage.setItem(THEME_KEY, nuevo);
+  aplicarTema(nuevo);
+}
+
+aplicarTema(localStorage.getItem(THEME_KEY) === 'light' ? 'light' : 'dark');
+document.getElementById('theme-toggle-btn').addEventListener('click', alternarTema);
+
+// ---------- TAMAÑO DE LETRA ----------
+// Como casi todo el CSS de la app está en rem, cambiar el font-size del
+// <html> escala toda la interfaz de forma proporcional.
+const FONT_KEY = 'ferro_font_scale';
+const FONT_PASOS = [87.5, 100, 112.5, 125, 137.5]; // porcentajes
+
+function aplicarFontScale(pct){
+  document.documentElement.style.fontSize = pct + '%';
+  localStorage.setItem(FONT_KEY, String(pct));
+}
+
+function cambiarFontScale(delta){
+  const actual = Number(localStorage.getItem(FONT_KEY)) || 100;
+  const idx = FONT_PASOS.indexOf(actual);
+  const nuevoIdx = Math.min(FONT_PASOS.length - 1, Math.max(0, (idx === -1 ? 1 : idx) + delta));
+  aplicarFontScale(FONT_PASOS[nuevoIdx]);
+}
+
+aplicarFontScale(Number(localStorage.getItem(FONT_KEY)) || 100);
+document.getElementById('font-menos-btn').addEventListener('click', () => cambiarFontScale(-1));
+document.getElementById('font-mas-btn').addEventListener('click', () => cambiarFontScale(1));
+
+renderEfemeride();
+renderTrivia();
+renderTimeline();
+renderNicknames();
+renderHistoricSquads();
+renderDestacados();
+renderDTs();
+renderFilters();
+renderSquad();
+renderResults();
+renderProximos();
+fetchLiveData();
+
+// ---------- PWA: service worker + install prompt ----------
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(err => console.warn('SW registration failed', err));
+  });
+}
+
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installToast').classList.add('show');
+});
+document.getElementById('installBtn').addEventListener('click', async () => {
+  document.getElementById('installToast').classList.remove('show');
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+  }
+});
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installToast').classList.remove('show');
+});
+</script>
+</body>
+</html>
